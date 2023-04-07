@@ -13,7 +13,7 @@ class App extends Component {
     render() {
         return (
             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text>RN-0.71</Text>
+                <Text>RN-0.71-one</Text>
             </View>
         )
     }
