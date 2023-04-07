@@ -14,7 +14,7 @@ class App extends Component {
         return (
             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                 <Text>RN-0.71-hello sonar tow branch</Text>
-                <Text>add three branch</Text>
+                <Text>add three branch hello</Text>
             </View>
         )
     }
