@@ -1,14 +1,14 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
-apply plugin: "org.sonarqube" version "4.2.1.3168"
+// apply plugin: "org.sonarqube" version "4.2.1.3168"
 
-sonarqube {
-  properties {
-    property "sonar.projectKey", "yebin-sesa524903_rndemo"
-    property "sonar.organization", "yebin-sesa524903"
-    property "sonar.host.url", "https://sonarcloud.io"
-  }
-}
+// sonarqube {
+//   properties {
+//     property "sonar.projectKey", "yebin-sesa524903_rndemo"
+//     property "sonar.organization", "yebin-sesa524903"
+//     property "sonar.host.url", "https://sonarcloud.io"
+//   }
+// }
 
 import com.android.build.OutputFile
 
