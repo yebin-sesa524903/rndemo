@@ -57,7 +57,7 @@ function Section({children, title}: SectionProps): JSX.Element {
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-
+let now = Date.now();
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
@@ -87,7 +87,7 @@ function App(): JSX.Element {
             <DebugInstructions />
           </Section>
           <Section title="Learn More">
-            Read the docs to discover what to do next:
+            Read the docs to discover what to do next:sonar test
           </Section>
           <LearnMoreLinks />
         </View>
