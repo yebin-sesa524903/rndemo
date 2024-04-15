@@ -57,7 +57,7 @@ function Section({children, title}: SectionProps): JSX.Element {
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-let now = Date.now();
+let now2 = Date.now();
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
