@@ -1,6 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
-apply plugin: "org.sonarqube" version "4.2.1.3168""
+apply plugin: "org.sonarqube" version "4.2.1.3168"
 
 sonarqube {
   properties {
