@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CodePushDeploymentKey</key>
+	<string>rf0ka0ZGEfpL9sY9HTt_iaxY4Pr4VkAYAKQfl</string>
+	<key>PushAppKey</key>
+	<string>23358217</string>
+	<key>PushAppSecret</key>
+	<string>7d45fb7e6ccfbb4337ad88e42f0f5077</string>
+	<key>REMOSSBucket</key>
+	<string>se-t-data.energymost.com</string>
+	<key>REMTaskCenterUri</key>
+	<string>http://wss-test.energymost.com/mobile-msg</string>
+	<key>CFBundleName</key>
+	<string>EnergyHub_Test</string>
+	<key>CFBundleIdentifier</key>
+	<string>cn.com.schneider-electric.RockEH</string>
+	<key>UpgradeUri</key>
+	<string>https://sp1.fm.energymost.com/download-app</string>
+	<key>SensorsdataUri</key>
+	<string>https://shinaide.datasink.sensorsdata.cn/sa?project=default&amp;token=73d14e3d1dabdb42</string>
+	<key>UmengAppKey</key>
+	<string>5a322b46f29d98686b0002b2</string>
+	<key>GaodeKey</key>
+	<string>98d069bb4baeca4a6dabe95140896be6</string>
+	<key>GaodeSDKKey</key>
+	<string>20fd56fc9bb926c82113e83ca5717ea6</string>
+	<key>BuglyAppIDString</key>
+	<string>b8d974171f</string>
+	<key>BuglyDebugEnable</key>
+	<false/>
+	<key>Host</key>
+	<string>http://pop-ticket-api-to.energymost.com</string>
+	<key>PrivacyEntryUri</key>
+	<string>https://passport-test.energymost.com/zh-cn/rulePrivacy</string>
+	<key>PrivacyMyUri</key>
+	<string>https://passport-test.energymost.com/zh-cn/appPrivacy</string>
+	<key>ExchangeUri</key>
+	<string>https://bang-qas.schneider-electric.cn/emp-schneider-app-portlet/services/registerPage/qianliyan/userid/yymmdd?ecId=777029657408045061&amp;_dept=40</string>
+</dict>
+</plist>

@@ -1,0 +1,30 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:actionBarStyle">@style/CustomActionBar</item>
+
+        <!-- <item name="android:alertDialogTheme">@style/AlertDialogCustom</item> -->
+        <!-- <item name="android:windowTranslucentStatus">true</item> -->
+
+        <item name="android:colorPrimaryDark">@color/statusbar</item>
+
+    </style>
+
+    <style name="CustomActionBar" parent="@android:style/Widget.DeviceDefault.ActionBar">
+        <item name="android:titleTextStyle">@style/ActionBarTitle</item>
+    </style>
+
+    <style name="ActionBarTitle" parent="@android:style/TextAppearance.Holo.Large">
+        <item name="android:fontFamily">@string/font</item>
+        <item name="android:textColor">@color/orange</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="android:Theme.Material.Light.Dialog.Alert">
+      <item name="android:colorPrimary">@color/orange</item>
+      <item name="android:colorAccent">@color/orange</item>
+    </style>
+
+</resources>
