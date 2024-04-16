@@ -147,8 +147,8 @@ function updateNewPassword(state, action) {
     .set('postState', 'failure');
 }
 
-function logout(state) {
-  console.warn('logout',);
+function logout(state,action) {
+  console.warn('logout',action);
   storage.removeToken();
   storage.removeDeviceId();
   storage.removeCustomerId();
@@ -345,7 +345,7 @@ export default function (state = defaultState, action) {
   // console.log(action);
   switch (action.type) {
     case NO_TOKEN:
-      return logout(defaultState, action);
+      return logout(defaultState,action);
     case OFFLINE_USER:
       return loadUser(state, action);
     case USER_REQUEST:
