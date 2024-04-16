@@ -94,7 +94,6 @@ export function checkTicketById(ticketId,userName,isService){
         type: CHECK_SERVICE_TICKET,
         data:{ticketId,userName,isService},
       });
-      return;
     }
     let prefix = isService ? 'LogBookTickets/GetTicketByTicketId' : 'tickets';
     return dispatch({

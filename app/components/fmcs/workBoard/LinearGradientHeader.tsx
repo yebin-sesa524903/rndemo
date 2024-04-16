@@ -31,8 +31,9 @@ export function LinearGradientHeader(props: LinearGradientHeaderProps) {
           marginBottom: 6,
         }} numberOfLines={1} lineBreakMode={"tail"}>{props.title}</Text>
         {
-          props.subTitle&&
+          props.subTitle ?
           <Text style={{ fontSize: 12, color: Colors.text.sub }}> {props.subTitle}</Text>
+              :null
         }
       </LinearGradient>
       {props.content}

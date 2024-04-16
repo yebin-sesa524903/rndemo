@@ -51,27 +51,6 @@ export default class DeviceDetailView extends Component{
   _getTabArray(){
     // console.warn('deviceData',this.props.deviceData);
     return this.props.tabArray;
-    if(!this.props.deviceData){
-      return [];
-    }
-    // console.warn('hasRealtime',this.props.hasRealtime);
-    // console.warn('hasRuntime',this.props.hasRuntime);
-
-    var array = [];//['设备信息'];
-    if(this.props.hasRealtime){
-      array.push('数据监视');
-    }
-    if(this.props.hasRuntime){
-      array.push('运维参数');
-    }
-    if(this.props.has6Dashboard){
-      array.push('运行指标');
-    }
-    array.push('设备信息');
-    if(this.props.showLogTab){
-      array.push('维护日志');
-    }
-    return array;
   }
   _getTabControl(){
     var {width,height} = Dimensions.get('window');

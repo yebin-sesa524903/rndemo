@@ -568,7 +568,7 @@ export default class BuildingHealthyView extends Component{
             position:'absolute',
             width:158,height:158,
             alignItems:'center',justifyContent:'center',
-            paddingTop:Platform.OS==='ios'?0:0,
+            paddingTop:0,
             paddingBottom:Platform.OS==='ios'?0:5,
           },this._getIconWrapperStyles()]}>
           <View style={{marginTop:Platform.OS==='ios'?-10:0}}>

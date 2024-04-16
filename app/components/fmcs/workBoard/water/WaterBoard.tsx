@@ -53,14 +53,8 @@ export default function WaterBoardComponent(props: WaterBoardProps) {
       )
     } else if (item.chartType == WaterBoardChartType.multiBar) {
       return <Bar multi={true} multiData={item.data}/>
-      return (
-        <MultiChartBar chatData={item.data}/>
-      )
     } else if (item.chartType == WaterBoardChartType.singleBar) {
       return <Bar multi={false} data={item.data}/>
-      return (
-        <ChartBar chatData={item.data}/>
-      )
     }
     return <></>
   }

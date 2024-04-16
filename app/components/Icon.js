@@ -383,14 +383,6 @@ export default class Icon extends Component {
         return (
           <Text style={styles}>&#xf227;</Text>
         );
-      case 'icon_arrow_up':
-        return (
-          <Text style={styles}>&#xf106;</Text>
-        )
-      case 'icon_arrow_down':
-        return (
-          <Text style={styles}>&#xf102;</Text>
-        )
       case 'icon_over_due':
         return (
           <Text style={styles}>&#xf186;</Text>

@@ -73,7 +73,7 @@ class DateItem extends PureComponent {
         >
           <View style={[
             styles.itemView,
-            { paddingTop: showLunar ? 0 : 0 },todayStyle,
+            { paddingTop:  0 },todayStyle,
             {backgroundColor: highlight ? highlightBgColor : normalBgColor}
           ]}>
             <Text style={[

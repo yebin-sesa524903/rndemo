@@ -25,10 +25,8 @@ export interface MonitorProps {
 }
 
 export function DeviceDataMonitor(props: DeviceMonitorProps) {
-  if (props.isFetching||props.isFetching===null) return <Loading />
-
   const [isExpand, setIsExpand]=React.useState(true);
-
+  if (props.isFetching||props.isFetching===null) return <Loading />
   const renderItem=(alarm: MonitorProps[]) => {
 
     return (

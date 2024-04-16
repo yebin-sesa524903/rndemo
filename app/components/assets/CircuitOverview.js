@@ -176,69 +176,6 @@ export default class CircuitOverview extends Component {
 
   renderRiskIndex() {
     return null;
-    if (!this.props.riskErr &&
-      (!this.props.riskData || this.props.riskData.size === 0)) {
-      return;
-    }
-    let otherView = null;
-    if (this.props.riskFetching) {
-      otherView = <Loading/>
-    } else if (this.props.riskErr) {
-      otherView = (
-        <Text style={{fontSize: 12, color: '#888'}}>加载数据失败</Text>
-      )
-    }
-    let riskDate = this.props.riskDate;
-    if(!riskDate) {
-      riskDate = moment().format('YYYY年MM月DD日');
-    } else {
-      riskDate = moment(riskDate).format('YYYY年MM月DD日');
-    }
-    let contentView = null;
-    if (otherView) {
-      contentView = (
-        <View style={{height: 200,alignItems:'center', justifyContent:'center'}}>
-          {otherView}
-        </View>
-      )
-    } else {
-      contentView = (
-        <View onMoveShouldSetResponder={()=>{
-          this._moveTime = Date.now();
-          if(this.state.canScroll) {
-            this.setState({canScroll:false})
-          }
-          return false;
-        }}>
-          <ChartRiskIndex date={moment(this.props.riskDate).toDate().getTime() / 1000} data={this.props.riskData.toJS()}/>
-        </View>
-      )
-    }
-
-    let leftRightIcon = (icon,click) => {
-      return (
-        <TouchFeedback onPress={click}>
-          <View style={{padding: 4}}>
-            <Icon type={icon} color={'#888'} size={14}/>
-          </View>
-        </TouchFeedback>
-      )
-    }
-    return (
-      <View style={{padding: 16, backgroundColor: '#fff',marginBottom: 10}}>
-        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-          <Text style={{fontSize: 17, color: '#333'}}>风险指数历史曲线</Text>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            {leftRightIcon('icon_arrow_left',()=>this._changeDatePre())}
-            <TouchFeedback onPress={this._pickDate.bind(this)}>
-              <Text style={{fontSize: 14, color: '#888'}}>{riskDate}</Text>
-            </TouchFeedback>
-            {leftRightIcon('icon_arrow_right',()=>this._changeDateNext())}
-          </View>
-        </View>
-        {contentView}
-      </View>
-    )
   }
 
   renderPower() {

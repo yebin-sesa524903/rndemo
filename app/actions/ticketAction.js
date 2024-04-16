@@ -565,11 +565,11 @@ export const TICKET_MESSAGE_SAVE_REQUEST = 'TICKET_MESSAGE_SAVE_REQUEST';
 export const TICKET_MESSAGE_SAVE_SUCCESS = 'TICKET_MESSAGE_SAVE_SUCCESS';
 export const TICKET_MESSAGE_SAVE_FAILURE = 'TICKET_MESSAGE_SAVE_FAILURE';
 
-export function saveMessage(body, isCreate) {
+export function saveMessage(body) {
   return (dispatch, getState) => {
     return dispatch({
       types: [TICKET_MESSAGE_SAVE_REQUEST, TICKET_MESSAGE_SAVE_SUCCESS, TICKET_MESSAGE_SAVE_FAILURE],
-      url: isCreate ? '/popapi/api/tickets/creatediscuss' : '/popapi/api/tickets/creatediscuss',
+      url: '/popapi/api/tickets/creatediscuss',
       body
     });
 

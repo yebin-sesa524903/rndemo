@@ -155,12 +155,7 @@ export default class AlarmFilter extends Component{
     }else{
       beginTime=new Date();
     }
-    if(Platform.OS === 'android'){
-      // this._showPicker('StartTime');
-      this.setState({modalVisible:true,type:'StartTime',date:beginTime});
-    }else {
-      this.setState({modalVisible:true,type:'StartTime',date:beginTime});
-    }
+    this.setState({modalVisible:true,type:'StartTime',date:beginTime});
   }
 
   _clickEndTime(time){
@@ -170,12 +165,7 @@ export default class AlarmFilter extends Component{
     }else{
       endTime=new Date();
     }
-    if(Platform.OS === 'android'){
-      // this._showPicker('EndTime');
-      this.setState({modalVisible:true,type:'EndTime',date:endTime});
-    }else {
-      this.setState({modalVisible:true,type:'EndTime',date:endTime});
-    }
+    this.setState({modalVisible:true,type:'EndTime',date:endTime});
   }
 
   _renderDate(rid){

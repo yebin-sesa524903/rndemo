@@ -99,7 +99,7 @@ export default class ScrollableTabBar extends Component{
   renderTab(name, page, isTabActive, onPressHandler, onLayoutHandler) {
     const { activeTextColor, inactiveTextColor, textStyle, } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
-    const fontWeight = isTabActive ? 'normal' : 'normal';
+    const fontWeight = 'normal';
     var lineColor='green';
     if (this.props.underlineStyle) {
       lineColor=this.props.underlineStyle.backgroundColor;

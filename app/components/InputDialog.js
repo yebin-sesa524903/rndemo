@@ -47,7 +47,7 @@ export default class InputDialog extends Component{
             }
           })
         }
-      });
+      }).then();
     }
   }
 

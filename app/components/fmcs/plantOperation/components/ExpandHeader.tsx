@@ -34,14 +34,14 @@ export function ExpandHeader(props: ExpandHeaderProps) {
           {props.icon && <Image source={props.icon} style={{width: 15, height: 15, marginRight: 6}}/>}
           <Text style={{fontWeight: 'bold', fontSize: 15, color: Colors.seTextPrimary}}>{props.title}</Text>
           {
-            props.subTitle && <Text style={{
+            props.subTitle ? <Text style={{
               marginLeft: 15,
               color: Colors.seBrandNomarl,
               fontSize: 12,
               backgroundColor: Colors.seBgLayout,
               paddingHorizontal: 5,
               paddingVertical: 3
-            }}>{props.subTitle}</Text>
+            }}>{props.subTitle}</Text> : null
           }
         </View>
         <View style={{flexDirection:'row', alignItems:'center'}}>

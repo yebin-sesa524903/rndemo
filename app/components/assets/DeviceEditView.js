@@ -166,7 +166,7 @@ export default class DeviceEditView extends Component {
           borderBottomWidth: 1, borderBottomColor: LINE
         }}>
           <Text style={{ fontSize: 17, color: '#333', width: 110 }}>{title}</Text>
-          <Text style={{ fontSize: 17, color: value ? '#888' : '#888', flex: 1 }}>{displayValue}</Text>
+          <Text style={{ fontSize: 17, color: '#888', flex: 1 }}>{displayValue}</Text>
           <Icon type={'icon_asset_folder'} color={'#b2b2b2'} size={20} />
         </View>
       </TouchFeedback>
@@ -366,9 +366,10 @@ export default class DeviceEditView extends Component {
     }
   }
 
-  _selectExtra(title, key) {
+  _selectExtra(_title, key) {
+    cosnole.log(_title)
     let data = this._extra[key].Values;
-    title = key;
+    let title = key;
     this.props.navigation.push('PageWarpper', {
       id: 'AssetInfoSingleSelect',
       component: AssetInfoSingleSelect,

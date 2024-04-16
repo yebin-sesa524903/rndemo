@@ -250,10 +250,10 @@ export default class AssetHierarchyView extends Component {
   }
   _getDropMenu() {
     var arrMenu = ['menuScan'];
-    var height = Platform.OS === 'ios' ? 42 : 42;
+    var height =  42;
     if (this.props.hasBindAuth) {
       arrMenu.push('menuBind');
-      height = Platform.OS === 'ios' ? 87 : 87;
+      height =  87;
     }
     let top = 56;
     if (Platform.OS === 'ios') {

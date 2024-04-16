@@ -39,8 +39,9 @@ function GasTable(headers: string[], rows?: string[][], leftRow?: { title: strin
         <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
           <Text style={styles.headerText}>{title}</Text>
           {
-            subTitle &&
+            subTitle ?
             <Text style={{fontSize: 12, color: Colors.text.sub}}>{subTitle}</Text>
+                :null
           }
         </View>
       )

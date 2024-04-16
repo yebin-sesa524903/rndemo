@@ -43,11 +43,6 @@ export default class Alarm extends Component{
 
   _renderSection(sectionData,sectionId,rowId){
     return null;
-    var sectionTitle = this.props.sectionData.get(sectionId);
-    if(!sectionTitle) return null;
-    return (
-      <Section text={sectionTitle} />
-    );
   }
   _getTabControl(){
     var array = ['未解除','已解除'];

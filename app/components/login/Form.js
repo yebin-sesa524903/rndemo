@@ -119,12 +119,7 @@ export default class Form extends Component {
   }
   _codeChanged(type, text) {
     // console.warn('inputchange:',type);
-    if (type === 'password') {
-      // this.props.onInputChanged(type, 'eJCJ/wrddqTHGx7rhxL+hA==1');
-      this.props.onInputChanged(type, text);
-    } else {
-      this.props.onInputChanged(type, text);
-    }
+    this.props.onInputChanged(type, text);
   }
   // _staffNumChange(type,text) {
   //   // console.log(type);
@@ -149,30 +144,6 @@ export default class Form extends Component {
 
   _renderHostInput() {
     return null;
-    return (
-      <>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            textContentType={'URL'}
-            autoFocus={false}
-            autoCapitalize={'none'}
-            underlineColorAndroid={'transparent'}
-            textAlign={'left'}
-            placeholderTextColor={'#b2b2b2'}
-            textAlignVertical={'bottom'}
-            placeholder={'服务器地址'}
-            onChangeText={(text) => this._codeChanged('host', text)}
-            value={this.props.data.get('host')}
-          />
-          <TouchFeedback onPress={() => { this.props.doHostConfig() }}>
-            <Text>配置</Text>
-          </TouchFeedback>
-        </View>
-        <View style={{ height: 10, backgroundColor: 'transparent' }} />
-      </>
-
-    )
   }
 
   _getMobileValidationForm() {

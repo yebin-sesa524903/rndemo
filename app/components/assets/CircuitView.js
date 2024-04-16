@@ -75,37 +75,6 @@ export default class CircuitView extends Component{
   }
   _getView(){
     return this.props.contentView;
-    if(Platform.OS === 'ios'){
-      return this.props.contentView;
-    }
-    else {
-      return (
-        <ViewPagerAndroid
-          ref={(viewPager) => { this._viewPager = viewPager; }}
-          style={{flex:1}}
-          initialPage={this.props.currentIndex}
-          onPageSelected={(e)=>this._onPageSelected(e)}
-        >
-          {
-            this._getTabArray().map((item,index)=>{
-              var contentView = null;
-              if(this.props.currentIndex === index){
-                contentView = this.props.contentView;
-                // console.warn('contentView',contentView,index,this.props.currentIndex);
-              }
-              // console.warn('contentView',contentView);
-              return (
-                <View key={index} style={{flex:1}}>
-                  {
-                    contentView
-                  }
-                </View>
-              )
-            })
-          }
-        </ViewPagerAndroid>
-      )
-    }
   }
   componentWillReceiveProps(nextProps) {
     if(nextProps.currentIndex !== this.props.currentIndex){

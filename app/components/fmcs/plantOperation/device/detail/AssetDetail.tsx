@@ -110,7 +110,7 @@ function RenderGroup(props: any) {
             <View key={index} style={{
               flexDirection: 'row', paddingHorizontal: 16,
               justifyContent: 'space-between',
-              paddingVertical: 13, paddingBottom: borderWidth? 13:13,
+              paddingVertical: 13, paddingBottom: 13,
               borderBottomColor: Colors.seBorderSplit,
               backgroundColor: Colors.seBgContainer,
               borderBottomWidth: borderWidth,
