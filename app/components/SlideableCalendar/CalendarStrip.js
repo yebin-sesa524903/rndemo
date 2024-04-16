@@ -50,6 +50,7 @@ class DateItem extends PureComponent {
       onItemPress,
     } = this.props;
     const solar = format(item, 'D');
+    console.log(showLunar)
     // const _lunar = ChineseLunar.solarToLunar(item);
     // const lunar = ChineseLunar.format(_lunar, 'd');
     const highlightBgColor = '#284e98';

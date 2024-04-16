@@ -3,7 +3,6 @@ import {View, Text, ScrollView, RefreshControl, PanResponder} from 'react-native
 import Icon from "../Icon";
 import TouchFeedback from "../TouchFeedback";
 import ChartTpCurve from './ChartTpCurve';
-import ChartRiskIndex from './ChartRiskIndex';
 import ChartPower from './ChartPower';
 import moment from "moment";
 import DateTimePicker from "react-native-modal-datetime-picker";
@@ -160,20 +159,6 @@ export default class CircuitOverview extends Component {
     )
   }
 
-  _changeDatePre() {
-    let date = moment(this.props.riskDate).add(-1,'d').format(FORMAT);
-    this.props.changeRiskDate(date);
-  }
-
-  _changeDateNext() {
-    if (moment().isBefore(moment(this.props.riskDate)) ||
-      moment().format(FORMAT) === moment(this.props.riskDate).format(FORMAT))
-      return;
-
-    let date = moment(this.props.riskDate).add(1,'d').format(FORMAT);
-    this.props.changeRiskDate(date);
-  }
-
   renderRiskIndex() {
     return null;
   }
@@ -256,11 +241,6 @@ export default class CircuitOverview extends Component {
         {this.renderGap()}
       </View>
     )
-  }
-
-  _pickDate() {
-    this._riskDate = moment(this.props.riskDate).toDate();
-    this.setState({modalVisible: true})
   }
 
   _renderPickerView() {

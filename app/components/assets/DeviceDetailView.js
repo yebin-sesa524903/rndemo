@@ -304,8 +304,6 @@ DeviceDetailView.propTypes = {
   contentView:PropTypes.object,
   indexChanged:PropTypes.func.isRequired,
   currentIndex:PropTypes.number.isRequired,
-  hasRealtime:PropTypes.bool.isRequired,
-  hasRuntime:PropTypes.bool.isRequired,
   deviceData:PropTypes.object,
   title:PropTypes.string.isRequired,
   errorMessage:PropTypes.string,

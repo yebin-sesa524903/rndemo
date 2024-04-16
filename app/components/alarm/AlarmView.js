@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import Toolbar from '../Toolbar';
 import List from '../List.js';
 import AlarmRow from './AlarmRow.js';
-import Section from '../Section.js';
 import PagerBar from '../PagerBar.js';
 import TouchFeedback from "../TouchFeedback";
 import {isPhoneX} from '../../utils';
@@ -228,7 +227,6 @@ Alarm.propTypes = {
   clearFilter:PropTypes.func.isRequired,
   isFetching:PropTypes.bool.isRequired,
   listData:PropTypes.object,
-  sectionData:PropTypes.object,
   onRefresh:PropTypes.func.isRequired,
   nextPage:PropTypes.func.isRequired,
 }

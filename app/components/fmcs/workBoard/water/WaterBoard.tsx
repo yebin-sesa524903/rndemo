@@ -2,10 +2,8 @@ import React from "react";
 import {FlatList, StyleSheet, View, Text, RefreshControl,} from "react-native";
 import {screenWidth} from "../../../../utils/const/Consts";
 import {WaterBoardChartType} from "../../../../containers/fmcs/workBoard/waterBoard/WaterBoardHelper";
-import ChartBar from "../charts/ChartBar";
 import {LineCharts} from "../charts/LineCharts";
 import {LinearGradientHeader} from "../LinearGradientHeader";
-import MultiChartBar from "../charts/MultiChartBar";
 import {Bar} from "../charts/Bar";
 
 

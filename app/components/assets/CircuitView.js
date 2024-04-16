@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
-import {View,Dimensions,StyleSheet,Platform,//ViewPagerAndroid,
-  SegmentedControlIOS, InteractionManager} from 'react-native';
+import {View,Dimensions} from 'react-native';
 import Toolbar from '../Toolbar';
 import ViewPager from '@react-native-community/viewpager';
 const ViewPagerAndroid=ViewPager;
@@ -23,11 +22,7 @@ export default class CircuitView extends Component{
     // console.warn('_tabChanged',event.nativeEvent.selectedSegmentIndex);
     this.props.indexChanged(event.nativeEvent.selectedSegmentIndex);
   }
-  _onPageSelected(e){
-    if(e.nativeEvent.position !== this.props.currentIndex){
-      this.props.indexChanged(e.nativeEvent.position);
-    }
-  }
+
   _pagerBarClicked(index){
     if(this.props.currentIndex !== index){
       this.props.indexChanged(index);
