@@ -7,19 +7,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginByPassword, loginInfoChanged, getVerificationCode, resetLoginItem, agreePrivacy, loginSaveUserName } from '../actions/loginAction';
 import Login from '../components/login/Login';
-import LoginWithMobile from './LoginWithMobile';
-import PassEdit from './my/PassEdit.js';
-import RegWithPhone from './RegWithPhone';
 import ForgetPassword from "./ForgetPassword";
-import {DeviceEventEmitter, Keyboard} from 'react-native';
+import { DeviceEventEmitter, Keyboard } from 'react-native';
 import WebPage from "../components/WebPage";
 import appInfo from "../utils/appInfo";
 import HostConfig from "./HostConfig";
 import JSSM4 from '../utils/sm4/index';
-import {localStr} from "../utils/Localizations/localization";
-import SndAlert from "../utils/components/SndAlert";
-import {NavigationActions} from "react-navigation";
-import SndToast from "../utils/components/SndToast";
 
 const ENCRYPTION_KEY = "1412423432232233";
 const sm4 = new JSSM4(ENCRYPTION_KEY);
@@ -34,25 +27,6 @@ class LoginWithPassword extends Component {
   };
 
   _switch(type) {
-    if (type === 'changePassword') {
-      this.props.navigation.push({
-        id: 'change_password',
-        // sceneConfig:'HorizontalSwipeJump',
-        component: PassEdit
-      });
-    } else if (type === 'phoneLogin') {
-      this.props.navigation.push({
-        id: 'login_mobile',
-        // sceneConfig:'HorizontalSwipeJump',
-        component: LoginWithMobile
-      });
-    } else if (type === 'phoneReg') {
-      this.props.navigation.push({
-        id: 'reg_with_phone',
-        // sceneConfig:'HorizontalSwipeJump',
-        component: RegWithPhone
-      });
-    }
   }
 
   _gotoPrivacyPage() {
@@ -99,7 +73,7 @@ class LoginWithPassword extends Component {
     if (nextProps.user.get('user') && !this.props.user.get('user')) {
       ///登录成功
       DeviceEventEmitter.emit('User_Login_Success');
-      setTimeout(()=>{
+      setTimeout(() => {
         this.context.hideHud();
       }, 1000)
     }

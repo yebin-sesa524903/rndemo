@@ -1,6 +1,6 @@
 
 'use strict';
-import React, { Component, PureComponent, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import {
   View, SafeAreaView,
   // Alert
@@ -9,90 +9,59 @@ import {
   AppState,
   InteractionManager,
   DeviceEventEmitter,
-  Alert,
-  UIManager,
   Dimensions,
   ActionSheetIOS,
-  Linking,
   Share, PermissionsAndroid
 } from 'react-native';
 import PropTypes from 'prop-types';
 import NetInfo from "@react-native-community/netinfo";
 import { connect } from 'react-redux';
-import backHelper from '../utils/backHelper';
 import TabBar from '../components/TabBar';
-import My from './my/My';
-import Alarm from './alarm/Alarm';
-import Ticket from './ticket/Ticket';
-import Assets from './assets/Assets';
-import Notify from './notify/Notify';
 import notificationHelper from '../utils/notificationHelper.js';
 import ViewPager from '../components/ViewPager';
 import privilegeHelper from "../utils/privilegeHelper";
-import permissionCode from "../utils/permissionCode";
 import { detectClipboard, emptyClipboard } from '../actions/appAction.js';
 // console.warn('ViewPager',ViewPager);
 // import CameraRoll from 'rn-camera-roll';
 import CameraRoll from "@react-native-community/cameraroll";
 import Permissions from 'react-native-permissions';
-import Scan from './assets/Scan';
 
 import ReactNativeDetectNewPhoto from 'react-native-detect-new-photo';
 import * as ScreenshotDetector from 'react-native-screenshot-detector';
-import RNFS, { DocumentDirectoryPath } from 'react-native-fs';
+import RNFS from 'react-native-fs';
 
-import TicketDetail from './ticket/TicketDetail';
-import AlarmDetail from './alarm/AlarmDetail';
 import SchActionSheet from "../components/actionsheet/SchActionSheet";
 
-import AlarmFilter from './alarm/AlarmFilter';
 import { Drawer } from '@ant-design/react-native';
-import Device from "./assets/Device";
-import trackApi from "../utils/trackApi";
-import { registerDevice, unregisterDevice, getCustomerPrivilegeCodes, postBkgLocation, setSubstation } from '../actions/myAction';
+import { registerDevice, setSubstation } from '../actions/myAction';
 //var DeviceInfo = require('react-native-device-info');
-import DeviceInfo, { getManufacturer, isTablet } from 'react-native-device-info';
+import { getManufacturer } from 'react-native-device-info';
 import storage from '../utils/storage';
 
 import { syncAbort, initSync, checkTicketById, syncTicketById } from '../actions/syncAction';
 import { queryUserHierarchyPath } from '../actions/myAction.js';
 import {
-  getUnSyncTickets, getDownloadTimeByTicketId, TICKET_LOG_UPDATE,
-  TICKET_LOG_ADD, TICKET_LOG_DELETE, TICKET_TYPE_SAVE_SIGN, getUnSyncServiceTickets, TICKET_TYPE_SAVE_SIGN_BZ
+  getUnSyncTickets
 } from '../utils/sqliteHelper';
 import appInfo from '../utils/appInfo.js';
-import { getAddressByLocation, uploadLocation } from '../utils/locationHelper'
 import Toast from 'react-native-root-toast';
-import { getMethodUri } from '../middleware/api.js';
 import AlertDialog from "../components/AlertDialog";
 import Loading from '../components/Loading';
-import { syncUploadImages } from "../utils/patrolImageUtil";
 import { clearCompressImages } from '../utils/imageCompress';
-import TicketFilter from "./ticket/TicketFilter";
 import TouchFeedback from "../components/TouchFeedback";
 import NetworkImage from "../components/NetworkImage";
 import { isPhoneX } from "../utils";
 import SelectPartner from "./SelectPartner";
 import { requestPhotoPermission } from "../utils/devicePermission";
-import Monition from "./monition/Monition";
-import SingleSelect from "../components/assets/AssetInfoSingleSelect";
-import { getBaseUri, TOKENHEADER, JWTTOKENHEADER, HEADERDEVICEID } from '../middleware/api.js';
-import SubstationList from "./monition/SubstationList";
-import JobBill from "./monition/JobBill";
-import Immutable from 'immutable';
 // import AM, { amConfig, amChangeTheme } from 'react-native-ds-assets-maintance';
 
 var { NativeModules } = require('react-native');
-import socketUtil from '../utils/socketUtil';
-import CommandBill from "./monition/CommandBill";
-import Workbench from "./fmcs/workbench/workbench";
-import WorkBoard from "./fmcs/workBoard/workBoard";
 import Profile from "./fmcs/profile/Profile";
 import { isEmptyString } from "../utils/const/Consts";
 
 //import { TicketList as ZdgdTicketList, configCookie as ZdgdConfigCookie,  } from "rn-module-diagnosis-ticket";
 import { TicketList as XwycTicketList, configCookie as XwycConfigCookie, updateAbnormalCustomerId } from "rn-module-abnormal-ticket";
-import { TicketList as PdTicketList, configCookie as PdConfigCookie, updateInventoryCustomerId } from "rn-module-inventory-ticket";
+import { configCookie as PdConfigCookie, updateInventoryCustomerId } from "rn-module-inventory-ticket";
 
 import AssetManager from "./assetManager/container/AssetManager";
 import AlarmManager from "./alarmManager/container/AlarmManager";
@@ -264,123 +233,6 @@ class Main extends Component {
     }
   }
 
-
-  /**
-   * 本地缓存工单信息
-   * @returns {Promise<void>}
-   * @private
-   */
-  async _querySyncTask() {
-    //读取本地
-    let arr = await getUnSyncTickets();
-    let result = [];
-    if (arr && arr.length > 0) {
-      for (let i = 0; i < arr.length; i++) {
-        let item = arr[i];
-        let index = result.findIndex(item2 => {
-          return item2.id === item.ticket_id;
-        });
-        //获取指定工单对应的下载时间（判断冲突时需要使用到）
-        let downloadTime = await getDownloadTimeByTicketId(item.ticket_id);
-        let op = null;
-        if (item.operation_type === 1) {
-          //状态更新
-          switch (String(item.new_status)) {
-            case '3'://关闭工单
-              op = { "OperationType": 4, "Payload": { 'CloseDateTime': item.operation_time } };
-              break;
-            case '4'://提交工单
-              op = { "OperationType": 2, "Payload": { 'AuthDateTime': item.operation_time } };
-              break;
-          }
-        } else if (item.operation_type === 2) {
-          console.warn('item...', item);
-          //修改了巡检项
-          //这里可能包括了2部分：巡检项  和 summary字段
-          let data = JSON.parse(item.new_content);
-          let para = {}
-          if (data.update) {
-            para.TicketExecutionResult = JSON.stringify(data.update);
-          }
-          if (data.summary) {
-            para.Summary = data.summary;
-          }
-          op = { OperationType: 3, Payload: { UpdateDateTime: item.operation_time, ...para } }
-
-        } else if (item.operation_type === TICKET_LOG_ADD) {
-          //添加日志
-          let log = JSON.parse(item.new_content);
-          let logData = {
-            "TicketId": log.TicketId,
-            "Content": log.Content,
-            "Pictures": log.Pictures,
-            ...log.amap
-          }
-          op = {
-            OperationType: 5,
-            Payload: {
-              OperateTime: item.operation_time,
-              OperationType: 1,
-              TicketLogContent: logData
-            }
-          }
-        } else if (item.operation_type === TICKET_LOG_UPDATE) {
-          //修改日志
-          op = {
-            OperationType: 5,
-            Payload: {
-              OperateTime: item.operation_time,
-              OperationType: 2,
-              TicketLogContent: JSON.parse(item.new_content)
-            }
-          }
-        } else if (item.operation_type === TICKET_LOG_DELETE) {
-          //删除日志
-          op = {
-            OperationType: 5,
-            Payload: {
-              OperateTime: item.operation_time,
-              OperationType: 3,
-              TicketLogContent: JSON.parse(item.new_content)
-            }
-          }
-        }
-
-        if (index >= 0) {
-          result[index].data.push(op);
-        } else {
-          result.push({ id: item.ticket_id, beginTime: downloadTime, data: [op], isService: false });
-        }
-      }
-    }
-    //把service ticket离线操作也添加进去
-    arr = await getUnSyncServiceTickets();
-    let serviceResult = [];
-    if (arr && arr.length > 0) {
-      for (let i = 0; i < arr.length; i++) {
-        let item = arr[i];
-        let body = {
-          ticketId: item.ticket_id
-        }
-        if (item.new_status) {
-          body.status = Number(item.new_status);
-        }
-        if (item.new_content) {
-          let full = JSON.parse(item.new_content);
-          if (full && full.content) {
-            this._standardImageType(full.content);
-            body.content = full.content;
-          }
-        }
-        //获取指定工单对应的下载时间（判断冲突时需要使用到）
-        let downloadTime = await getDownloadTimeByTicketId(item.ticket_id, 'service_tickets');
-        serviceResult.push({ id: item.ticket_id, beginTime: downloadTime, data: [body], isService: true });
-      }
-    }
-    result = result.concat(serviceResult);
-    this.props.initSync(result);
-  }
-
   async _networkChanged(isConnected) {
 
     let lastUpdateTime = this._lastNetworkChangedTime || 0;
@@ -391,13 +243,6 @@ class Main extends Component {
     }
     this._lastNetworkChangedTime = Date.now();
     this._lastNetworkChanged = isConnected;
-    if (isConnected) {//有网，加载本地缓存数据
-      // let downloadTime= await getDownloadTimeByTicketId(1);
-      // this._querySyncTask().then();
-
-    } else {//断网，终端同步
-      // this.props.syncAbort();
-    }
   }
 
   _onNotification(notification) {
@@ -661,88 +506,6 @@ class Main extends Component {
   _onPostingCallback(type) {
   }
 
-  /**
-   * 跳转命令票详情
-   * @param billId
-   */
-  _gotoCommandBillDetail(billId) {
-    this.props.navigation.popToTop();
-    InteractionManager.runAfterInteractions(() => {
-      this.props.navigation.push({
-        id: 'notify_command_bill',
-        component: CommandBill,
-        passProps: {
-          billId: billId,
-        },
-      });
-    })
-  }
-  /***
-   * 跳转工作票详情
-   * @param billId
-   */
-  gotoJobBillDetail(billId) {
-    this.props.navigation.popToTop();
-    InteractionManager.runAfterInteractions(() => {
-      this.props.navigation.push({
-        id: 'notify_jobbill',
-        component: JobBill,
-        passProps: {
-          billId: billId,
-        },
-      });
-    })
-  }
-  _gotoTicketDetail(ticketId, fromHex, isFutureTask) {
-    let showTicket =
-      privilegeHelper.checkModulePermission(permissionCode.POP_TICKET_VIEW_MANAGEMENT) ||
-      privilegeHelper.checkModulePermission(permissionCode.POP_TICKET_EDIT_MANAGEMENT);
-    if (!showTicket) {
-      Toast.show('您没有这一项的查看权限，请联系系统管理员', {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.CENTER,
-      });
-      return;
-    }
-    this.props.navigation.popToTop();
-    InteractionManager.runAfterInteractions(() => {
-      this.props.navigation.push({
-        id: 'ticket_detail',
-        component: TicketDetail,
-        passProps: {
-          onPostingCallback: (type) => { this._onPostingCallback(type) },
-          ticketId: ticketId,
-          fromHex: fromHex,
-          fromFilterResult: false,
-          isFutureTask,
-        },
-      });
-    })
-  }
-  _gotoAlarmDetail(alarmId, fromHex) {
-    let showAlarm = privilegeHelper.checkModulePermission(permissionCode.SP_FAULT_ALARM);
-    if (!showAlarm) {
-      Toast.show('您没有这一项的查看权限，请联系系统管理员', {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.CENTER,
-      });
-      return;
-    }
-    this.props.navigation.popToTop();
-    InteractionManager.runAfterInteractions(() => {
-      this.props.navigation.push({
-        id: 'alarm_detail',
-        component: AlarmDetail,
-        barStyle: 'light-content',
-        passProps: {
-          onPostingCallback: (type) => { this._onPostingCallback(type) },
-          alarmId: alarmId,
-          fromHex
-        }
-      });
-    })
-
-  }
 
   //每次app启动时，判断有没有未同步离线工单，没有就清除压缩缓存目录
   async _clearCompressImages() {
@@ -875,42 +638,6 @@ class Main extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.warn('componentWillReceiveProps',nextProps.itemType,this.props.itemId,nextProps.itemId,nextProps.itemId!==this.props.itemId);
-    if (nextProps.itemType && nextProps.itemId && (nextProps.itemId !== this.props.itemId)) {
-      InteractionManager.runAfterInteractions(() => {
-        var index = 0;
-        if (nextProps.itemType === 'alarm') {
-          index = 1;
-        }
-        this._tabChanged(index, () => {
-          // notificationHelper.setNotification({Value:nextProps.itemId,Key:'ticket'});
-          SndAlert.alert(
-            '',
-            this.props.content,
-            [
-              {
-                text: '取消', onPress: () => {
-                  this.props.emptyClipboard();
-                  return;
-                }
-              },
-              {
-                text: '立即查看', onPress: () => {
-                  this.props.emptyClipboard();
-                  if (nextProps.itemType === 'alarm') {
-                    this._gotoAlarmDetail(nextProps.itemId, true);
-                  } else if (nextProps.itemType === 'ticket') {
-                    this._gotoTicketDetail(nextProps.itemId, true, false);
-                  }
-                  return;
-                }
-              }
-            ], { cancelable: false }
-          )
-        });
-      });
-    }
-
     if (nextProps.user.getIn(['user', 'CustomerId']) !== this.props.user.getIn(['user', 'CustomerId'])) {
       ///customerId更新
       let newCustomerId = nextProps.user.getIn(['user', 'CustomerId']);
@@ -919,74 +646,7 @@ class Main extends Component {
       ///刷新报警数据
       this._loadAlarmCount(newCustomerId);
     }
-
-    //在这里处理后台同步的问题
-    if (nextProps.sync.get('waitingSyncTickets') !== this.props.sync.get('waitingSyncTickets')) {
-      if (isConnected()) {
-        //处理同步问题
-        // this._processSync(nextProps);
-      }
-    }
   }
-
-  _processSync(nextProps) {
-    //取非关闭，失败，需要确认的一条，
-    //同步的规则是
-    let nextWating = nextProps.sync.get('waitingSyncTickets');
-    let wating = this.props.sync.get('waitingSyncTickets');
-    let size = nextWating.size;
-    if (size <= 0) {
-      return;
-    }
-    let username = this.props.user.getIn(['user', 'Name']);
-    let doCheck = () => {
-      for (let i = 0; i < size; i++) {
-        let status = nextWating.getIn([i, 'status']);
-        let isService = nextWating.getIn([i, 'isService']);
-        if (status === null || status === undefined) {
-          this.props.checkTicketById(nextWating.getIn([i, 'id']), username, isService);
-          return;
-        }
-      }
-    }
-
-    if (size !== wating.size) {
-      //直接处理第一条
-      //如有本地图片没有上传，则先上传本地图片，然后再进行更新
-      let fnSync = () => {
-        //可能会出现重新检测，这里需要判断下(可能本条已经同步过)，所以应该是找一个没有处理的过的进行预处理
-        doCheck();
-      }
-      let fnUpdateSyncData = () => {
-        this._querySyncTask();
-        // this._networkChanged(true)
-      };
-      syncUploadImages(fnSync, fnUpdateSyncData);
-      return;
-    }
-    for (let i = 0; i < size; i++) {
-      if (nextWating.get(i) !== wating.get(i) && nextWating.getIn([i, 'status']) !== wating.getIn([i, 'status'])) {
-        let status = nextWating.getIn([i, 'status']);
-        let isService = nextWating.getIn([i, 'isService']);
-        if (status === 1) {
-          this.props.syncTicketById(nextWating.getIn([i, 'id']), nextWating.getIn([i, 'data']).toJS(), isService);
-          return;
-        } else if (status > 1) {
-          //两种情况：检查或者同步设备，需要用户点重试；工单有冲突，需要判断是否覆盖或者放弃；工单被关闭了，需要放弃
-          //如果不是最后一条，则下一条进行检查
-          // if(i<size-1)
-          //   this.props.checkTicketById(nextWating.getIn([i+1,'id']),username);
-          // return;
-        } else if (!status) {//重试，有2变成null
-          this.props.checkTicketById(nextWating.getIn([i, 'id']), username, isService);
-          return;
-        }
-      }
-    }
-    //到这里了，说明变化的部分 等待用户处理，如果有未处理的任务，则开始进行
-    doCheck();
-  }
-
 
   componentWillUnmount() {
     // backHelper.destroy('main');
@@ -1013,69 +673,9 @@ class Main extends Component {
     if (this._netInfoEvent) { this._netInfoEvent() }
     this.alarmCountInterval && clearInterval(this.alarmCountInterval);
   }
-  gotoTicketDetail(ticketId) {
-    let routes = this.props.navigation.getCurrentRoutes();
-    if (routes && routes.length > 0) {
-      let lastRoute = routes[routes.length - 1];
-      // console.warn('current route',lastRoute);
-      // if(lastRoute.id!=='ticket_detail'){
-      this.props.navigation.push({
-        id: 'ticket_detail',
-        component: TicketDetail,
-        passProps: {
-          onPostingCallback: () => { },
-          ticketId: String(ticketId),
-          fromFilterResult: false,
-        },
-      });
-      // }
-    }
-  }
-
-  gotoAlarmDetail(alarmId) {
-    this.props.navigation.push({
-      id: 'alarm_detail',
-      component: AlarmDetail,
-      barStyle: 'light-content',
-      passProps: {
-        alarmId: String(alarmId),
-        onPostingCallback: () => { },
-      }
-    });
-  }
 
   handleNotification(obj) {
-    let type = obj.PushInfoType;
-    let id = obj.InfoKey;
-    switch (type) {
-      case 'job_bill':
-        this._tabChanged(3, () => {
-          if (id) {
-            InteractionManager.runAfterInteractions(() => {
-              this.gotoJobBillDetail(id);
-            });
-          }
-        });
-        break;
-      case 'command_bill':
-        this._tabChanged(3, () => {
-          if (id) {
-            InteractionManager.runAfterInteractions(() => {
-              this._gotoCommandBillDetail(id);
-            });
-          }
-        });
-        break;
-      case 'ticket':
-        this._tabChanged(1, () => {
-          if (id) {
-            InteractionManager.runAfterInteractions(() => {
-              this.gotoTicketDetail(id);
-            });
-          }
-        });
-        break;
-    }
+
   }
 
   onMessageReminder(obj) {
@@ -1252,12 +852,6 @@ class Main extends Component {
   }
 
   _renderSideBar() {
-    let tabConfig = this.state.arrTabConfig[this.state.selectedIndex];
-    if (tabConfig && tabConfig.type === 'alarm') {
-      return <AlarmFilter route={{ id: 'alarm_filter' }} close={() => this.drawer && this.drawer.closeDrawer()} />;
-    } else if (tabConfig && tabConfig.type === 'ticket') {
-      return <TicketFilter navigation={this.props.navigation} route={{ id: 'ticket_filter' }} close={() => this.drawer && this.drawer.closeDrawer()} />;
-    }
     return null;
   }
 
@@ -1288,39 +882,6 @@ class Main extends Component {
       </SafeAreaView>
 
     )
-  }
-
-  _checkSubstation() {
-    if (!this.props.substation) {
-      this._showSubstationDialog();
-    } else {
-      this._connectSocketIoClient();
-    }
-  }
-  _showSubstationDialog() {
-    if (global._substationFlag) return
-    global._substationFlag = true;
-    this._manualFlag = false;
-    SndAlert.alert("", "为了您的正常使用，请先选择所在变电所", [
-      {
-        text: '前往设置', onPress: () => {
-          global._substationFlag = false;
-          this._manualFlag = true;
-          this._gotoSelectSubstation()
-        }
-      }
-    ], {
-      cancelable: false, onDismiss: () => {
-        if (!this._manualFlag && global._substationFlag) global._substationFlag = false;
-      }
-    })
-  }
-
-  _gotoSelectSubstation() {
-    this.props.navigation.push({
-      id: 'substation_list',
-      component: SubstationList,
-    });
   }
 
   _renderContentView() {
@@ -1444,7 +1005,6 @@ function mapStateToProps(state) {
     unReadAlarmCount: count1 + count2,
     substation: state.user.get('substation'),
     hasNewVersion: state.version.get('hasNewVersion'),
-    notifyCount: state.notify.notifyList.get('count'),
     sync: state.sync,
     showSwitchLogo, logoUrl, currSpid, currSpname
   };

@@ -2,37 +2,18 @@
 import { combineReducers } from 'redux'
 import user from './userReducer';
 import login from './loginReducer';
-import alarm from './alarm';
-import notify from './notify';
-import monition from './monition';
-import ticket from './ticket';
 import asset from './assets';
+import ticket from './ticket';
 import version from './versionReducer';
 import boot from './bootReducer';
 import feedBack from './feedbackReducer';
-import statistics from './statisticsReducer';
-import reg from './regReducer';
-import sync from './syncReducer';
-import acidBucket from './acidBucket'
+import fileList from "./fileList/fileListReducer";
 import { RESET_ERROR_MESSAGE } from '../actions/errorAction.js';
 import { LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../actions/loginAction.js';
-import airBottle from "./airBottle";
-import inspection from "./inspection";
-import repair from "./repair";
-import maintain from "./maintain";
-import workbench from "./workbench/workbenchReducer";
-import consumables from "./consumables";
-import abnormal from "./abnormal"
-import spareTools from "./spareTools/spareToolsReducer";
-import fileList from "./fileList/fileListReducer";
-import spareOutStore from "./spareOutStore";
-import spareRepertory from "./spareRepertory";
-import knowledge from "./knowledge/index";
-import callIn from "./callIn";
-import workBoard from "./workBoard";
+// import workBoard from "./workBoard";
 import device from './device'
-import {alarmDetail, alarmList} from "../containers/alarmManager/reducer";
-import {localStr} from "../utils/Localizations/localization";
+import { alarmDetail, alarmList } from "../containers/alarmManager/reducer";
+import { localStr } from "../utils/Localizations/localization";
 // Updates error message to notify about the failed fetches.
 function error(state = null, action) {
   const { type, error } = action
@@ -78,10 +59,9 @@ function error(state = null, action) {
 }
 
 const rootReducer = combineReducers({
-  user, login, reg, asset, alarm, notify, ticket, version, boot, feedBack, statistics, sync, monition, error,
-  acidBucket, airBottle, inspection, repair, maintain, workbench, consumables, abnormal, spareTools, fileList, spareOutStore, spareRepertory, callIn, knowledge,
-  workBoard,device,
-  alarmList,alarmDetail,
+  user, login, asset, ticket, version, boot, feedBack, error,
+  device, fileList,
+  alarmList, alarmDetail,
 })
 
 export default rootReducer

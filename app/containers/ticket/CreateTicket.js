@@ -15,11 +15,10 @@ import {
   createTicket, resetCreateTicket, updateUserSelectInfo, updateAssetsSelectInfo, deleteTicket, loadExecutors
 } from '../../actions/ticketAction';
 import CreateTicketView from '../../components/ticket/CreateTicketView';
-import TicketTaskDesEdit from './TicketTaskDesEdit';
 import UsersSelect from './UsersSelect';
 import Toast from 'react-native-root-toast';
 import SingleSelectList from '../../components/SingleSelectList';
-import { localFormatStr, localStr } from "../../utils/Localizations/localization";
+import { localStr } from "../../utils/Localizations/localization";
 import privilegeHelper from "../../utils/privilegeHelper";
 import AssetRangeSelect from '../assetManager/container/AssetRangeSelect';
 import Immutable from 'immutable';
@@ -78,17 +77,7 @@ class CreateTicket extends Component {
   }
   _gotoDetail(type) {
     console.log('type', type)
-    if (type === 'Content') {
-      this.props.navigation.push('PageWarpper', {
-        id: 'ticket_description',
-        component: TicketTaskDesEdit,
-        passProps: {
-          content: this.props.data.get('Content'),
-          title: '任务描述',
-        }
-      });
-    }
-    else if (type === 'Executors') {
+    if (type === 'Executors') {
       //需要先选资产范围
       if (!this.props.selectAssets || this.props.selectAssets.size === 0) {
         Alert.alert(

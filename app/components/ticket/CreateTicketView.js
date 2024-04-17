@@ -119,7 +119,7 @@ export default class CreateTicketView extends Component {
           }
         })
       }
-    });
+    }).then();
     // }
   }
 
