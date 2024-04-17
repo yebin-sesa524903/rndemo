@@ -1,37 +1,3 @@
-// export const Get_Department_Codes_Request = 'Get_Department_Codes_Request';
-// export const Get_Department_Codes_Success = 'Get_Department_Codes_Success';
-// export const Get_Department_Codes_Error = 'Get_Department_Codes_Error';
-// /**
-//  * 获取课室codes
-//  * @param body
-//  * @returns {function(*): *}
-//  */
-// export const loadDepartmentCodes = (body) => {
-//     return (dispatch) => {
-//         return dispatch({
-//             types: [Get_Department_Codes_Request, Get_Department_Codes_Success, Get_Department_Codes_Error],
-//             url: '/lego-bff/bff/ledger/rest/common/getUserhierarchy',
-//             body
-//         });
-//     }
-// }
-
-// export const Get_System_Codes_Request = 'Get_System_Codes_Request';
-// export const Get_System_Codes_Success = 'Get_System_Codes_Success';
-// export const Get_System_Codes_Error = 'Get_System_Codes_Error';
-// /**
-//  * 获取系统code
-//  * @returns {function(*): *}
-//  */
-// export const loadSystemCodes = () => {
-//     return (dispatch) => {
-//         return dispatch({
-//             types: [Get_System_Codes_Request, Get_System_Codes_Success, Get_System_Codes_Error],
-//             url: '/fmcs/api/select/system',
-//         });
-//     }
-// }
-
 
 export const Inspection_List_Request = 'Inspection_List_Request';
 export const Inspection_List_Success = 'Inspection_List_Success';
@@ -42,13 +8,13 @@ export const Inspection_List_Failure = 'Inspection_List_Failure';
  * @returns {function(*, *): *}
  */
 export function loadInspectionList(body) {
-    return (dispatch) => {
-        return dispatch({
-            types: [Inspection_List_Request, Inspection_List_Success, Inspection_List_Failure],
-            url: '/lego-bff/bff/ledger/rest/mobile/patrol/getInspectionTaskList',
-            body
-        });
-    }
+  return (dispatch) => {
+    return dispatch({
+      types: [Inspection_List_Request, Inspection_List_Success, Inspection_List_Failure],
+      url: '/lego-bff/bff/ledger/rest/mobile/patrol/getInspectionTaskList',
+      body
+    });
+  }
 }
 
 export const Inspection_List_Input_Save = 'Inspection_List_Input_Save'
@@ -59,12 +25,12 @@ export const Inspection_List_Input_Save = 'Inspection_List_Input_Save'
  * @returns {function(*): *}
  */
 export function saveInspectionInput(input) {
-    return (dispatch) => {
-        return dispatch({
-            type: Inspection_List_Input_Save,
-            data: input,
-        });
-    }
+  return (dispatch) => {
+    return dispatch({
+      type: Inspection_List_Input_Save,
+      data: input,
+    });
+  }
 }
 
 export const Inspection_Search_Text_Save = 'Inspection_Search_Text_Save';
@@ -75,12 +41,12 @@ export const Inspection_Search_Text_Save = 'Inspection_Search_Text_Save';
  * @returns {function(*): *}
  */
 export function saveInspectionSearchText(searchText) {
-    return (dispatch) => {
-        return dispatch({
-            type: Inspection_Search_Text_Save,
-            data: searchText,
-        });
-    }
+  return (dispatch) => {
+    return dispatch({
+      type: Inspection_Search_Text_Save,
+      data: searchText,
+    });
+  }
 }
 
 export const Inspection_DatePicker_Visible = 'Inspection_DatePicker_Visible';
@@ -91,12 +57,12 @@ export const Inspection_DatePicker_Visible = 'Inspection_DatePicker_Visible';
  * @returns {function(*): *}
  */
 export function inspectDatePickerVisible(visible) {
-    return (dispatch) => {
-        return dispatch({
-            type: Inspection_DatePicker_Visible,
-            data: visible,
-        });
-    }
+  return (dispatch) => {
+    return dispatch({
+      type: Inspection_DatePicker_Visible,
+      data: visible,
+    });
+  }
 }
 
 
@@ -106,12 +72,12 @@ export const InspectList_Destroy_Clear = 'InspectList_Destroy_Clear';
  * 巡检列表销毁清空
  * @returns {function(*): *}
  */
-export function inspectListDestroyClear (){
-    return (dispatch) => {
-        return dispatch({
-            type: InspectList_Destroy_Clear,
-        });
-    }
+export function inspectListDestroyClear() {
+  return (dispatch) => {
+    return dispatch({
+      type: InspectList_Destroy_Clear,
+    });
+  }
 }
 
 /************巡检详情***************/
@@ -126,13 +92,13 @@ export const Inspection_Detail_Error = 'Inspection_Detail_Error';
  * @returns {function(*): *}
  */
 export function loadInspectDetail(body) {
-    return (dispatch) => {
-        return dispatch({
-            types: [Inspection_Detail_Request, Inspection_Detail_Success, Inspection_Detail_Error],
-            url: '/lego-bff/bff/ledger/rest/inspectionTask/getTaskBasicInfo',
-            body,
-        });
-    }
+  return (dispatch) => {
+    return dispatch({
+      types: [Inspection_Detail_Request, Inspection_Detail_Success, Inspection_Detail_Error],
+      url: '/lego-bff/bff/ledger/rest/inspectionTask/getTaskBasicInfo',
+      body,
+    });
+  }
 }
 
 
@@ -146,13 +112,13 @@ export const Inspection_Range_Error = 'Inspection_Range_Error';
  * @returns {function(*): *}
  */
 export function loadInspectRange(body) {
-    return (dispatch) => {
-        return dispatch({
-            types: [Inspection_Range_Request, Inspection_Range_Success, Inspection_Range_Error],
-            url: '/lego-bff/bff/ledger/rest/inspectionTask/getDeviceDetailByID',
-            body,
-        });
-    }
+  return (dispatch) => {
+    return dispatch({
+      types: [Inspection_Range_Request, Inspection_Range_Success, Inspection_Range_Error],
+      url: '/lego-bff/bff/ledger/rest/inspectionTask/getDeviceDetailByID',
+      body,
+    });
+  }
 }
 
 export const Inspection_Task_Request = 'Inspection_Task_Request'
@@ -164,13 +130,13 @@ export const Inspection_Task_Error = 'Inspection_Task_Error'
  * @returns {function(*): *}
  */
 export function loadInspectionTask(taskId) {
-    return (dispatch) => {
-        return dispatch({
-            types: [Inspection_Task_Request, Inspection_Task_Success, Inspection_Task_Error],
-            url: `/lego-bff/bff/ledger/rest/inspectionTask/getInspectionTaskNormalById`,
-            body: {taskId: taskId}
-        });
-    }
+  return (dispatch) => {
+    return dispatch({
+      types: [Inspection_Task_Request, Inspection_Task_Success, Inspection_Task_Error],
+      url: `/lego-bff/bff/ledger/rest/inspectionTask/getInspectionTaskNormalById`,
+      body: { taskId: taskId }
+    });
+  }
 }
 
 
@@ -182,7 +148,7 @@ export const Inspection_Task_Info_Save = 'Inspection_Task_Info_Save';
  * @returns {function(*): *}
  */
 export function saveInspectionTaskInfo(data) {
-  return (dispatch)=>{
+  return (dispatch) => {
     return dispatch({
       type: Inspection_Task_Info_Save,
       data: data
@@ -200,13 +166,13 @@ export const Inspection_Detail_Auto_ChaoBiao_Error = 'Inspection_Detail_Auto_Cha
  * @returns {function(*): *}
  */
 export function autoCaoBiao(body) {
-    return (dispatch) => {
-        return dispatch({
-            types: [Inspection_Detail_Auto_ChaoBiao_Request, Inspection_Detail_Auto_ChaoBiao_Success, Inspection_Detail_Auto_ChaoBiao_Error],
-            url: `/lego-bff/bff/ledger/rest/equipment/queryDataPointByAbbreviationList`,
-            body
-        });
-    }
+  return (dispatch) => {
+    return dispatch({
+      types: [Inspection_Detail_Auto_ChaoBiao_Request, Inspection_Detail_Auto_ChaoBiao_Success, Inspection_Detail_Auto_ChaoBiao_Error],
+      url: `/lego-bff/bff/ledger/rest/equipment/queryDataPointByAbbreviationList`,
+      body
+    });
+  }
 }
 
 export const Inspection_Task_Detail_Info_Save = 'Inspection_Task_Detail_Info_Save';
@@ -217,12 +183,12 @@ export const Inspection_Task_Detail_Info_Save = 'Inspection_Task_Detail_Info_Sav
  * @returns {function(*): *}
  */
 export function saveInspectionDetailInfo(data) {
-    return (dispatch)=>{
-        return dispatch({
-            type: Inspection_Task_Detail_Info_Save,
-            data: data
-        })
-    }
+  return (dispatch) => {
+    return dispatch({
+      type: Inspection_Task_Detail_Info_Save,
+      data: data
+    })
+  }
 }
 
 
@@ -236,13 +202,13 @@ export const Inspection_Detail_Update_Project_Error = 'Inspection_Detail_Update_
  * @returns {function(*): *}
  */
 export function taskUpdateProject(body) {
-    return (dispatch) => {
-        return dispatch({
-            types: [Inspection_Detail_Update_Project_Request, Inspection_Detail_Update_Project_Success, Inspection_Detail_Update_Project_Error],
-            url: `/lego-bff/bff/ledger/rest/inspectionTask/updateProject`,
-            body
-        });
-    }
+  return (dispatch) => {
+    return dispatch({
+      types: [Inspection_Detail_Update_Project_Request, Inspection_Detail_Update_Project_Success, Inspection_Detail_Update_Project_Error],
+      url: `/lego-bff/bff/ledger/rest/inspectionTask/updateProject`,
+      body
+    });
+  }
 }
 
 export const Inspection_Detail_Save_Task_Input_Save = 'Inspection_Detail_Save_Task_Input_Save';
@@ -252,13 +218,13 @@ export const Inspection_Detail_Save_Task_Input_Save = 'Inspection_Detail_Save_Ta
  * @param input
  * @returns {function(*): *}
  */
-export function saveTaskDetailInput(input){
-    return (dispatch)=>{
-        return dispatch({
-            type: Inspection_Detail_Save_Task_Input_Save,
-            data: input,
-        })
-    }
+export function saveTaskDetailInput(input) {
+  return (dispatch) => {
+    return dispatch({
+      type: Inspection_Detail_Save_Task_Input_Save,
+      data: input,
+    })
+  }
 }
 
 export const Inspection_Detail_Save_Task_Request = 'Inspection_Detail_Save_Task_Request';
@@ -270,13 +236,13 @@ export const Inspection_Detail_Save_Task_Error = 'Inspection_Detail_Save_Task_Er
  * @returns {function(*): *}
  */
 export function inspectionDetailSaveTask(body) {
-    return (dispatch) => {
-        return dispatch({
-            types: [Inspection_Detail_Save_Task_Request, Inspection_Detail_Save_Task_Success, Inspection_Detail_Save_Task_Error],
-            url: `/lego-bff/bff/ledger/rest/inspectionTask/saveTaskData`,
-            body
-        });
-    }
+  return (dispatch) => {
+    return dispatch({
+      types: [Inspection_Detail_Save_Task_Request, Inspection_Detail_Save_Task_Success, Inspection_Detail_Save_Task_Error],
+      url: `/lego-bff/bff/ledger/rest/inspectionTask/saveTaskData`,
+      body
+    });
+  }
 }
 
 export const Inspection_Detail_Inspect_Sheet_Visible = 'Inspection_Detail_Inspect_Sheet_Visible';
@@ -287,7 +253,7 @@ export const Inspection_Detail_Inspect_Sheet_Visible = 'Inspection_Detail_Inspec
  * @returns {function(*): *}
  */
 export function inspectionDetailInspectSheet(data) {
-  return (dispatch)=>{
+  return (dispatch) => {
     return dispatch({
       type: Inspection_Detail_Inspect_Sheet_Visible,
       data: data
@@ -303,7 +269,7 @@ export const Inspection_Detail_NFC_Sheet_Visible = 'Inspection_Detail_NFC_Sheet_
  * @returns {function(*): *}
  */
 export function inspectionDetailNFCSheet(data) {
-  return (dispatch)=>{
+  return (dispatch) => {
     return dispatch({
       type: Inspection_Detail_NFC_Sheet_Visible,
       data: data
@@ -318,12 +284,12 @@ export const Inspection_Detail_Destroy_Clear = 'Inspection_Detail_Destroy_Clear'
  * 巡检详情 销毁
  * @returns {function(*): *}
  */
-export function inspectionDetailDestroyClear (){
-    return (dispatch)=>{
-        return dispatch({
-            type: Inspection_Detail_Destroy_Clear,
-        })
-    }
+export function inspectionDetailDestroyClear() {
+  return (dispatch) => {
+    return dispatch({
+      type: Inspection_Detail_Destroy_Clear,
+    })
+  }
 }
 
 
@@ -334,8 +300,8 @@ export const Inspection_Task_Destroy_Clear = 'Inspection_Task_Destroy_Clear';
  * 巡检作业 销毁
  * @returns {function(*): *}
  */
-export function inspectionTaskDestroyClear (){
-  return (dispatch)=>{
+export function inspectionTaskDestroyClear() {
+  return (dispatch) => {
     return dispatch({
       type: Inspection_Task_Destroy_Clear,
     })

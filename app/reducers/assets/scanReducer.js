@@ -146,7 +146,7 @@ function updateAddLogbookDevice(state, action) {
 }
 
 function handleError(state, action) {
-  var { Error } = action.error;
+  var err = action.error.Error;
   var isBindQRCode = false;
   if (action.opt) {
     isBindQRCode = action.opt.isBindQRCode;
@@ -156,7 +156,7 @@ function handleError(state, action) {
   var strError = null;
   var strToast = null;
   let nameExist = false;
-  switch (Error) {
+  switch (err) {
     case '040001307022':
     case '050001207024':
       strError = '您没有这一项的操作权限，请联系系统管理员';
@@ -198,15 +198,15 @@ function handleError(state, action) {
       break;
   }
   if (strError || strToast) {
-    if (Error !== '403') {
+    if (err !== '403') {
       action.error = null;
     }
   }
-  state = defaultState.set('hasAuth', false).set('errorMessage', strError).set('errorToast', strToast);
+  let newState = defaultState.set('hasAuth', false).set('errorMessage', strError).set('errorToast', strToast);
   if (nameExist) {
-    state = state.set('nameExist', true);
+    newState = newState.set('nameExist', true);
   }
-  return state;
+  return newState;
 }
 
 export default function (state = defaultState, action) {

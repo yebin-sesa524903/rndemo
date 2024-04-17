@@ -100,12 +100,6 @@ export const TICKET_LOAD_BYID_SUCCESS = 'TICKET_LOAD_BYID_SUCCESS';
 export const TICKET_LOAD_BYID_FAILURE = 'TICKET_LOAD_BYID_FAILURE';
 
 export function loadTicketById(ticketId, data, isHex) {
-  //先判断指定的工单是否在本地有修改，有修改，则取本地相应的工单
-  if (isConnected()) {
-
-  }
-
-
   return (dispatch, getState) => {
     return dispatch({
       types: [TICKET_LOAD_BYID_REQUEST, TICKET_LOAD_BYID_SUCCESS, TICKET_LOAD_BYID_FAILURE],
@@ -937,7 +931,7 @@ export function submitPatrolTicketItems(ticketId, content) {
     return dispatch({
       types: [SUBMIT_PATROL_TICKET_ITEM_REQUEST, SUBMIT_PATROL_TICKET_ITEM_SUCCESS, SUBMIT_PATROL_TICKET_ITEM_FAILURE],
       url: `/popapi/api/tickets/execute/${ticketId}`,
-      body: content//{Content:content}
+      body: content
     });
   }
 }

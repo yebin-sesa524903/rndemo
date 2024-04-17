@@ -209,20 +209,13 @@ export default {
     return RNSecureKeyStore.set(key, encValue, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY })
   },
   async getItem(key, cb, isAutoEnc) {
-    // let isEncVer = await this.getIsEncryptData();
-    // console.warn('111',key,isAutoEnc);
     return new Promise((res, rej) => {
-      // console.warn('222',key,isAutoEnc);
       RNSecureKeyStore.get(key).then((ret) => {
         cb && cb(ret);
         return res(ret);
       }, (err) => {
         return res(null, err);
       });
-      // AsyncStorage.getItem(key,(err,ret)=>{
-      //   cb && cb(ret,err);
-      //   return res(ret);
-      // });
     })
   },
   async getClipboardContent(cb) {

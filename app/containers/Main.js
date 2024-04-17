@@ -42,7 +42,6 @@ import { syncAbort, initSync, checkTicketById, syncTicketById } from '../actions
 import { queryUserHierarchyPath } from '../actions/myAction.js';
 import appInfo from '../utils/appInfo.js';
 import Toast from 'react-native-root-toast';
-import AlertDialog from "../components/AlertDialog";
 import Loading from '../components/Loading';
 import TouchFeedback from "../components/TouchFeedback";
 import NetworkImage from "../components/NetworkImage";
@@ -801,18 +800,6 @@ class Main extends Component {
 
   }
 
-  _showAlertDialog() {
-    let buttons = [{ text: '关闭', textColor: '#007aff' }, { text: '查看', textColor: '#ff4d4d' }]
-    if (this.state.pushAlertShow) {
-      return (
-        <AlertDialog modalShow={this.state.pushAlertShow} buttons={buttons}
-          title={this.state.pushTitle} message={this.state.pushContent}
-          onClick={index => this._onDialogClick(index)} />
-      );
-    } else {
-      return null;
-    }
-  }
 
   _getActionSheet() {
     var arrActions = this.state.arrActions;

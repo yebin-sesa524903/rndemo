@@ -24,6 +24,7 @@ export function setPartner(partner) {
 async function getStorageToken(cb) {
   let value = await storage.getToken();
   cb(value);
+  return value;
 }
 
 export function loadUser() {
@@ -34,20 +35,10 @@ export function loadUser() {
     }
     getStorageToken(async (value) => {
       if (!value) {
-        await storage.getItem('partner', value => {
-          console.warn('partner', value);
-          setTimeout(() => {
-            dispatch({
-              type: LOAD_SELECT_PARTNER,
-              partner: value
-            })
-          }, 100);
-        });
         return dispatch({
           type: NO_TOKEN,
         });
       }
-
       if (!isConnected()) {
         storage.getUser(async user => {
           user = JSON.parse(user);

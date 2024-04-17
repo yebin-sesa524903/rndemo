@@ -147,8 +147,8 @@ function updateNewPassword(state, action) {
     .set('postState', 'failure');
 }
 
-function logout(state,action) {
-  console.warn('logout',action);
+function logout(state, action) {
+  console.warn('logout', action);
   storage.removeToken();
   storage.removeDeviceId();
   storage.removeCustomerId();
@@ -210,9 +210,9 @@ async function saveUserName(userName) {
 }
 
 function handleError(state, action) {
-  var { Error } = action.error;
+  let err = action.error.Error;
   var errCode = null;
-  switch (Error) {
+  switch (err) {
     case '050001212003':
       // action.error = '原始密码错误';
       action.error = null;
@@ -245,8 +245,8 @@ function handleError(state, action) {
       action.error = '未知错误';
       break;
   }
-  if (Error && Error.customErrorCode) {
-    errCode = Error.customErrorCode;
+  if (err && err.customErrorCode) {
+    errCode = err.customErrorCode;
     action.error = null;
   }
   // if (action.type === PHONE_AUTHCODE_FAILURE) {
@@ -304,10 +304,10 @@ function handleUpdateUserFail(state, action) {
   // }else if (action.error.Error==='05000125510008') {
   //   action.error='手机号错误';
   // }
-  let { Error } = action.error;
-  if (Error && Error.length > 5) {
+  let err = action.error.Error;
+  if (err && err.length > 5) {
     //取后5位错误码
-    let postFix = Error.substring(Error.length - 5);
+    let postFix = err.substring(err.length - 5);
     switch (postFix) {
       case '11001':
         action.error = '角色ID缺少';
@@ -345,7 +345,7 @@ export default function (state = defaultState, action) {
   // console.log(action);
   switch (action.type) {
     case NO_TOKEN:
-      return logout(defaultState,action);
+      return logout(defaultState, action);
     case OFFLINE_USER:
       return loadUser(state, action);
     case USER_REQUEST:

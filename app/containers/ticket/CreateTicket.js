@@ -415,23 +415,6 @@ function mapStateToProps(state, ownProps) {
   //   data = null;
   // }
   var isExecuterNotCreate = false;
-  if (false && data) {
-    var isExecutor = false;
-    data.get('Executors').forEach(item => {
-      if (!isExecutor) {
-        isExecutor = state.user.get('user').get('Id') === item.get('Id');
-        // console.warn('dddd',state.user.get('user').get('Id'),item);
-      }
-    })
-    if (isExecutor) {
-      isExecuterNotCreate = true;
-    }
-    if (ownProps.isCurrCreater) {
-      isExecuterNotCreate = false;
-    }
-    // console.warn('dddd2',isExecuterNotCreate);
-    // console.warn('isExecutor....',isExecutor);
-  }
   var isEnableCreate = customer && ticketType !== 0 && selectAssets.size >= 1 && startTime && endTime && selectUsers.size >= 1 && content.length > 0;
   // console.warn('mapStateToProps',isExecuterNotCreate);
   let hierarchyListData = state.device.deviceList.hierarchyListData || [];
