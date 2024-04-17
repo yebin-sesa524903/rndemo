@@ -40,14 +40,10 @@ import storage from '../utils/storage';
 
 import { syncAbort, initSync, checkTicketById, syncTicketById } from '../actions/syncAction';
 import { queryUserHierarchyPath } from '../actions/myAction.js';
-import {
-  getUnSyncTickets
-} from '../utils/sqliteHelper';
 import appInfo from '../utils/appInfo.js';
 import Toast from 'react-native-root-toast';
 import AlertDialog from "../components/AlertDialog";
 import Loading from '../components/Loading';
-import { clearCompressImages } from '../utils/imageCompress';
 import TouchFeedback from "../components/TouchFeedback";
 import NetworkImage from "../components/NetworkImage";
 import { isPhoneX } from "../utils";
@@ -507,15 +503,6 @@ class Main extends Component {
   }
 
 
-  //每次app启动时，判断有没有未同步离线工单，没有就清除压缩缓存目录
-  async _clearCompressImages() {
-    let arr = await getUnSyncTickets();
-    if (arr && arr.constructor.name === 'Array' && arr.length > 0) {
-      //说明有未同步工单，不处理
-    } else {
-      clearCompressImages();
-    }
-  }
   getUrlParamsToMap = (url) => {
     var params = {}
     //去除所有空格
@@ -591,7 +578,6 @@ class Main extends Component {
 
   componentDidMount() {
     this._startCheckNewPhoto();
-    this._clearCompressImages();
     this._setPrivilege();
     this._startCheckAppState();
 
