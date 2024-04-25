@@ -5,6 +5,7 @@ on:
       - main
       - release-*
       - branch-*
+      - feature-*
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
