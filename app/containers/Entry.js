@@ -74,8 +74,6 @@ class Entry extends Component {
         }
       })
     });
-
-    LogBox.ignoreAllLogs();
   }
 
   _initTrace() {

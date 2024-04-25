@@ -50,7 +50,7 @@ export default class SQLite extends Component{
             console.warn("sql fail",sql,error);
             // console.warn(error);
         },()=>{
-            console.warn('sql 执行成功',sql)
+            console.warn('sql 执行成功')
         });
     }
 
