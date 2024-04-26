@@ -43,6 +43,8 @@ var _exitHandler = null;
 var _exitFlag = false;
 var mainLoginView = null;
 
+LogBox.ignoreAllLogs();
+
 class Entry extends Component {
   constructor(props) {
     super(props);

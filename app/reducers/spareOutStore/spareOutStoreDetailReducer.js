@@ -42,9 +42,6 @@ const initialState = {
 }
 
 function handleError(state, action) {
-  var { Error } = action.error;
-  //console.warn('sparehandleError', Error, action);
-  // action.error =
   let newState = state;// .set()
   return newState;
 }

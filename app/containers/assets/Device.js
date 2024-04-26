@@ -411,10 +411,6 @@ class Device extends Component {
           }}
           imageId={this._getCurrentData(this.props).get('imageId')} />
       );
-    } else if (type === 'infoData') {
-      component = (
-        <DeviceInfoView {...obj} />
-      );
     } else if (type == 'logData') {
       if (!this._getDataSource()) {
         let data = stateData.get('data');

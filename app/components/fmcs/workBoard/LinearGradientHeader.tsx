@@ -1,4 +1,4 @@
-import {Text, TextStyle, View} from "react-native";
+import { Text, TextStyle, View } from "react-native";
 import Colors from "../../../utils/const/Colors";
 import LinearGradient from "react-native-linear-gradient";
 import React from "react";
@@ -16,7 +16,7 @@ export function LinearGradientHeader(props: LinearGradientHeaderProps) {
       backgroundColor: Colors.white,
       borderRadius: 4,
       marginTop: 10,
-      overflow:'hidden',
+      overflow: 'hidden',
     }}>
       <LinearGradient start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
@@ -31,8 +31,8 @@ export function LinearGradientHeader(props: LinearGradientHeaderProps) {
           marginBottom: 6,
         }} numberOfLines={1} lineBreakMode={"tail"}>{props.title}</Text>
         {
-          props.subTitle&&
-          <Text style={{ fontSize: 12, color: Colors.text.sub }}> {props.subTitle}</Text>
+          !props.subTitle? null:
+            <Text style={{ fontSize: 12, color: Colors.text.sub }}> {props.subTitle}</Text>
         }
       </LinearGradient>
       {props.content}

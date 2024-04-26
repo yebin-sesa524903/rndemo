@@ -199,8 +199,8 @@ export class AssetNameEdit extends Component {
     if (this.props.type === 'building') {
       //如果输入了详细地址信息，但是字数少于5个，给出提示
       let detailAddress = address.Province.trim();
-      let len = detailAddress.match(/[^\x00-\x80]/g);
-      if (!len || len.length < 5) {
+      //let len = detailAddress.match(/[^\x00-\x80]/g);
+      if (detailAddress.length < 5) {
         Toast.show('详细地址不能少于5个汉字', {
           duration: Toast.durations.LONG,
           position: Toast.positions.BOTTOM,

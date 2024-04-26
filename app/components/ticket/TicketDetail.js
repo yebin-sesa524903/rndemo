@@ -292,7 +292,7 @@ export default class TicketDetail extends Component {
   _getTab() {
     var { rowData } = this.props;
     var status = rowData.get('Status');
-    return (
+    if (true) return (
       <View style={{ height: 48, justifyContent: 'flex-end' }}>
         <Text style={{ fontSize: 17, marginBottom: 8, fontWeight: '600', color: '#333' }}>{`日志(${this.props.logCount})`}</Text>
       </View>
@@ -642,7 +642,7 @@ export default class TicketDetail extends Component {
     }
 
     if (status === 4) {//表示已提交工单
-      return this._renderSubmittedButton();
+      if (true) return this._renderSubmittedButton();
       var btnClose = (
         <Button
           style={[styles.button, {
@@ -751,7 +751,7 @@ export default class TicketDetail extends Component {
         </Bottom>
       );
     } else if (status === 2 && isScollView) {
-      <View style={{
+      return (<View style={{
         flex: 1, borderTopWidth: 1, borderTopColor: '#f2f2f2',
         height: 72, paddingHorizontal: 16, paddingVertical: 13
       }}>
@@ -764,7 +764,7 @@ export default class TicketDetail extends Component {
             color: '#ffffff'
           }}
           text='完成工单' onClick={() => this.props.finish(this.props.rowData.get('Id'))} />
-      </View>
+      </View>)
     }
 
     return null;

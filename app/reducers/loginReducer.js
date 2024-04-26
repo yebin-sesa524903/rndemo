@@ -225,15 +225,15 @@ function countDown(state, action) {
 }
 
 function handleResetError(state, action) {
-  let { Error } = action.error;
+  let err = action.error.Error;
   state = state.set('emailResetPosting', 2);
-  switch (Error) {
+  switch (err) {
     case '050001312008'://用户名不存在
     case '050001312101'://邮箱不匹配
     case '050001312019'://邮箱不存在
     case '060001212020'://邮箱对应多个账号
       action.error = null;
-      state = state.set('resetErrorCode', Error);
+      state = state.set('resetErrorCode', err);
       break;
     default:
       state = state.set('resetErrorCode', null);
@@ -243,10 +243,10 @@ function handleResetError(state, action) {
 }
 
 function handleError(state, action) {
-  var { Error } = action.error;
+  let err = action.error.Error;
   console.warn('loginhandleError', action);
   var errCode = null;
-  switch (Error) {
+  switch (err) {
     case '050001212602':
       action.error = '该手机号在系统内未注册';
       break;
@@ -283,8 +283,8 @@ function handleError(state, action) {
     default:
 
   }
-  if (Error && Error.customErrorCode) {
-    errCode = Error.customErrorCode;
+  if (err && err.customErrorCode) {
+    errCode = err.customErrorCode;
     action.error = null;
   }
   // console.warn('action',action);
@@ -331,8 +331,6 @@ function fetching(state, val) {
 function handleRequest(state, action) {
   return fetching(state, true).
     set('errCode', null);
-  setIn(['mobile', 'submitEnable'], false).
-    setIn(['password', 'submitEnable'], false);
 }
 
 

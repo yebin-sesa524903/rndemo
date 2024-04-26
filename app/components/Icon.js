@@ -1,230 +1,230 @@
 'use strict'
-import React,{Component,} from 'react';
+import React, { Component, } from 'react';
 
 
-import {Text,} from 'react-native';
+import { Text, } from 'react-native';
 import PropTypes from 'prop-types';
 
 
 
 export default class Icon extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
-  render () {
-    var {style,size,type,color,font} = this.props;
+  render() {
+    var { style, size, type, color, font } = this.props;
 
-    var styles = [style,{backgroundColor:'transparent',fontFamily:font || 'fontcustom',fontSize:size,color}];
+    var styles = [style, { backgroundColor: 'transparent', fontFamily: font || 'fontcustom', fontSize: size, color }];
 
     switch (type) {
       case 'moon_profile_select':
         return (
-            <Text style={styles}>&#xe923;</Text>
+          <Text style={styles}>&#xe923;</Text>
         );
       case 'moon_profile':
         return (
-            <Text style={styles}>&#xe924;</Text>
+          <Text style={styles}>&#xe924;</Text>
         );
 
       case 'moon_workboard_select':
         return (
-            <Text style={styles}>&#xe93f;</Text>
+          <Text style={styles}>&#xe93f;</Text>
         );
       case 'moon_workboard':
         return (
-            <Text style={styles}>&#xe940;</Text>
+          <Text style={styles}>&#xe940;</Text>
         );
 
       case 'moon_workbranch_select':
         return (
-            <Text style={styles}>&#xe941;</Text>
+          <Text style={styles}>&#xe941;</Text>
         );
       case 'moon_workbranch':
         return (
-            <Text style={styles}>&#xe942;</Text>
+          <Text style={styles}>&#xe942;</Text>
         );
 
-        //icon-add
+      //icon-add
       case 'moon_icon-add':
         return (
-            <Text style={styles}>&#xe904;</Text>
+          <Text style={styles}>&#xe904;</Text>
         );
 
       case 'moon_icon-arrow_down':
         return (
-            <Text style={styles}>&#xe905;</Text>
+          <Text style={styles}>&#xe905;</Text>
         );
       case 'moon_icon-arrow_right':
         return (
-            <Text style={styles}>&#xe906;</Text>
+          <Text style={styles}>&#xe906;</Text>
         );
       case 'moon_icon-arrow_up':
         return (
-            <Text style={styles}>&#xe907;</Text>
+          <Text style={styles}>&#xe907;</Text>
         );
-        //icon-scan
+      //icon-scan
       case 'moon_icon-scan':
         return (
-            <Text style={styles}>&#xe935;</Text>
+          <Text style={styles}>&#xe935;</Text>
         );
-        //icon-checkbox_nomal
+      //icon-checkbox_nomal
       case 'moon_icon-checkbox_nomal':
         return (
-            <Text style={styles}>&#xe90e;</Text>
+          <Text style={styles}>&#xe90e;</Text>
         );
       case 'moon_icon-checkbox_select':
         return (
-            <Text style={styles}>&#xe90f;</Text>
+          <Text style={styles}>&#xe90f;</Text>
         );
       case 'moon_icon-deviceFile_fill':
         return (
-            <Text style={styles}>&#xe914;</Text>
+          <Text style={styles}>&#xe914;</Text>
         );
       case 'moon_icon-message_fill':
         return (
-            <Text style={styles}>&#xe921;</Text>
+          <Text style={styles}>&#xe921;</Text>
         );
-        //icon-spareParts_fill
+      //icon-spareParts_fill
       case 'moon_icon-spareParts_fill':
         return (
-            <Text style={styles}>&#xe931;</Text>
+          <Text style={styles}>&#xe931;</Text>
         );
       case 'moon_icon-file_fill':
         return (
-            <Text style={styles}>&#xe916;</Text>
+          <Text style={styles}>&#xe916;</Text>
         );
-        //icon-change_fill
+      //icon-change_fill
       case 'moon_icon-change_fill':
         return (
-            <Text style={styles}>&#xe90d;</Text>
+          <Text style={styles}>&#xe90d;</Text>
         );
-        //icon-act_fill
+      //icon-act_fill
       case 'moon_icon-act_fill':
         return (
-            <Text style={styles}>&#xe903;</Text>
+          <Text style={styles}>&#xe903;</Text>
         );
-//icon-standBy_fill
+      //icon-standBy_fill
       case 'moon_icon-standBy_fill':
         return (
-            <Text style={styles}>&#xe938;</Text>
+          <Text style={styles}>&#xe938;</Text>
         );
-        //icon-range_fill
+      //icon-range_fill
       case 'moon_icon-range_fill':
         return (
-            <Text style={styles}>&#xe925;</Text>
+          <Text style={styles}>&#xe925;</Text>
         );
-        //icon-summary_fill
+      //icon-summary_fill
       case 'moon_icon-summary_fill':
         return (
-            <Text style={styles}>&#xe939;</Text>
+          <Text style={styles}>&#xe939;</Text>
         );
-        //icon-inspection_fill
+      //icon-inspection_fill
       case 'moon_icon-inspection_fill':
         return (
-            <Text style={styles}>&#xe918;</Text>
+          <Text style={styles}>&#xe918;</Text>
         );
-        //icon-maintain_fill
+      //icon-maintain_fill
       case 'moon_icon-maintain_fill':
         return (
-            <Text style={styles}>&#xe91d;</Text>
+          <Text style={styles}>&#xe91d;</Text>
         );
-        //icon-warning_fill
+      //icon-warning_fill
       case 'moon_icon-warning_fill':
         return (
-            <Text style={styles}>&#xe93e;</Text>
+          <Text style={styles}>&#xe93e;</Text>
         );
-        //icon-runtime_fill
+      //icon-runtime_fill
       case 'moon_icon-runtime_fill':
         return (
-            <Text style={styles}>&#xe934;</Text>
+          <Text style={styles}>&#xe934;</Text>
         );
-        //icon-picture_fill
+      //icon-picture_fill
       case 'moon_icon-picture_fill':
         return (
-            <Text style={styles}>&#xe922;</Text>
+          <Text style={styles}>&#xe922;</Text>
         );
-        //icon-asset_fill
+      //icon-asset_fill
       case 'moon_icon-asset_fill':
         return (
-            <Text style={styles}>&#xe908;</Text>
+          <Text style={styles}>&#xe908;</Text>
         );
-        //icon-bottle_wb
+      //icon-bottle_wb
       case 'moon_icon-bottle_wb':
         return (
-            <Text style={styles}>&#xe909;</Text>
+          <Text style={styles}>&#xe909;</Text>
         );
-        //icon-acidDrum_wb
+      //icon-acidDrum_wb
       case 'moon_icon-acidDrum_wb':
         return (
-            <Text style={styles}>&#xe900;</Text>
+          <Text style={styles}>&#xe900;</Text>
         );
-        //icon-inspection_wb
+      //icon-inspection_wb
       case 'moon_icon-inspection_wb':
         return (
-            <Text style={styles}>&#xe919;</Text>
+          <Text style={styles}>&#xe919;</Text>
         );
-        //icon-maintain_wb
+      //icon-maintain_wb
       case 'moon_icon-maintain_wb':
         return (
-            <Text style={styles}>&#xe91e;</Text>
+          <Text style={styles}>&#xe91e;</Text>
         );
-        //icon-repair_wb
+      //icon-repair_wb
       case 'moon_icon-repair_wb':
         return (
-            <Text style={styles}>&#xe926;</Text>
+          <Text style={styles}>&#xe926;</Text>
         );
-        //icon-warning_wb
+      //icon-warning_wb
       case 'moon_icon-warning_wb':
         return (
-            <Text style={styles}>&#xe93b;</Text>
+          <Text style={styles}>&#xe93b;</Text>
         );
-        //icon-consumableChange_wb
+      //icon-consumableChange_wb
       case 'moon_icon-consumableChange_wb':
         return (
-            <Text style={styles}>&#xe911;</Text>
+          <Text style={styles}>&#xe911;</Text>
         );
-        //icon-replacementRetrieval_wb
+      //icon-replacementRetrieval_wb
       case 'moon_icon-replacementRetrieval_wb':
         return (
-            <Text style={styles}>&#xe92e;</Text>
+          <Text style={styles}>&#xe92e;</Text>
         );
-        //icon-replacementCheck_wb
+      //icon-replacementCheck_wb
       case 'moon_icon-replacementCheck_wb':
         return (
-            <Text style={styles}>&#xe92b;</Text>
+          <Text style={styles}>&#xe92b;</Text>
         );
 
       case 'moon_icon-device-list':
         return (
-            <Text style={styles}>&#xe943;</Text>
+          <Text style={styles}>&#xe943;</Text>
         );
       case 'moon_icon-default-image':
         return (
-            <Text style={styles}>&#xe950;</Text>
+          <Text style={styles}>&#xe950;</Text>
         );
 
       case 'moon_icon-file-txt':
         return (
-            <Text style={styles}>&#xe954;</Text>
+          <Text style={styles}>&#xe954;</Text>
         );
 
       case 'moon_icon-file-ppt':
         return (
-            <Text style={styles}>&#xe951;</Text>
+          <Text style={styles}>&#xe951;</Text>
         );
 
       case 'moon_icon-file-pdf':
         return (
-            <Text style={styles}>&#xe94d;</Text>
+          <Text style={styles}>&#xe94d;</Text>
         );
 
       case 'moon_icon-file-doc':
         return (
-            <Text style={styles}>&#xe947;</Text>
+          <Text style={styles}>&#xe947;</Text>
         );
       case 'moon_icon-file-xls':
         return (
-            <Text style={styles}>&#xe94a;</Text>
+          <Text style={styles}>&#xe94a;</Text>
         );
 
       case 'ticket_notstart':
@@ -326,14 +326,6 @@ export default class Icon extends Component {
       case 'icon_unselect':
         return (
           <Text style={styles}>&#xf10d;</Text>
-        );
-      case 'icon_arrow_down':
-        return (
-          <Text style={styles}>&#xf102;</Text>
-        );
-      case 'icon_arrow_up':
-        return (
-          <Text style={styles}>&#xf106;</Text>
         );
       case 'icon_person':
         return (
@@ -538,8 +530,8 @@ export default class Icon extends Component {
 }
 
 Icon.propTypes = {
-  type:PropTypes.string.isRequired,
-  color:PropTypes.string.isRequired,
-  size:PropTypes.number.isRequired,
-  style:PropTypes.any
+  type: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
+  style: PropTypes.any
 };

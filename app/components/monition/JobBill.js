@@ -714,7 +714,6 @@ export default class JobBill extends Component {
               if (key === KEYS.ZJ_JDD || key === KEYS.ZJ_GROUP) return ITEM_STATE.N_INPUT
               else return ITEM_STATE.N_SIGN
             }
-            break;
         }
       } else {
         //针对变更负责人，单独处理
@@ -771,7 +770,6 @@ export default class JobBill extends Component {
             return ITEM_STATE.READ;
           }
           return ITEM_STATE.NONE;
-          break;
         case BILL_STATE.WAITING_RECYCLE:
           if (key === KEYS.HS_SIGN) return this.state.data[key] ? ITEM_STATE.SIGN_IMG : ITEM_STATE.SIGN;
           if (this.state.data[key]) {

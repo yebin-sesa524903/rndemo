@@ -768,7 +768,7 @@ class TicketDetail extends Component {
       return;
     }
     //只留下日志
-    return (
+    if (true) return (
       <TicketLog navigator={this.props.navigator} route={this.props.route}
         traceAddLogData={this._traceAddLogData(undefined)}
         ticketId={this.props.rowData.get('Id')}

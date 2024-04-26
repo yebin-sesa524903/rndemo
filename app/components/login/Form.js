@@ -22,7 +22,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import storage from '../../utils/storage';
 import Colors from "../../utils/const/Colors";
 import Icon from "../Icon";
-import {localStr} from "../../utils/Localizations/localization";
+import { localStr } from "../../utils/Localizations/localization";
 
 export default class Form extends Component {
   constructor(props) {
@@ -148,7 +148,7 @@ export default class Form extends Component {
   }
 
   _renderHostInput() {
-    return null;
+    if (true) return null;
     return (
       <>
         <View style={styles.inputContainer}>
@@ -423,7 +423,7 @@ export default class Form extends Component {
               <ModalDropdown
                 options={this.state.arrayUserName}
                 dropdownListProps={{}}
-                dropdownStyle={[{ height: this.state.arrayUserName.length * 44, width: Dimensions.get('window').width - 15 * 2 - 27 * 2, borderColor: Colors.seBorderSplit}]}
+                dropdownStyle={[{ height: this.state.arrayUserName.length * 44, width: Dimensions.get('window').width - 15 * 2 - 27 * 2, borderColor: Colors.seBorderSplit }]}
                 dropdownTextStyle={{ color: Colors.seTextPrimary, fontSize: 14, backgroundColor: Colors.seBgContainer, height: 44, paddingLeft: 12 }}    //下拉框文本样式
                 renderSeparator={this._separator}
                 adjustFrame={(position) => {
@@ -477,17 +477,17 @@ export default class Form extends Component {
             onClick={this.props.onSubmit}
             text={localStr('lang_login_button')}
             disabled={!loginBtnEnable}
-            textStyle={{color: Colors.seTextInverse}}
+            textStyle={{ color: Colors.seTextInverse }}
             disabledStyle={{ backgroundColor: Colors.seDisabledColor }}
             style={{ marginTop: 2, marginLeft: 27, marginRight: 27, backgroundColor: Colors.seBrandNomarl, height: 45, borderRadius: 2 }}></Button>
-          <Pressable style={{ display: 'flex', flexDirection: 'row', alignItems: 'center',}} onPress={() => {
+          <Pressable style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', }} onPress={() => {
             this.props.onClickSaveUserName(this.state.isSaveUserName)
           }}>
             <View>
               {this.state.isSaveUserName ?
-                  <View style={{ justifyContent:'center', alignItems:'center',marginTop: 20, marginLeft: 27, width: 16, height: 16, backgroundColor:Colors.seBrandNomarl,borderRadius:2 }}>
-                    <Icon type={'icon_check'} color={Colors.seBgContainer} size={14}/>
-                  </View>
+                <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20, marginLeft: 27, width: 16, height: 16, backgroundColor: Colors.seBrandNomarl, borderRadius: 2 }}>
+                  <Icon type={'icon_check'} color={Colors.seBgContainer} size={14} />
+                </View>
                 : <Image source={require('../../images/login/repassword/nopassword.png')} style={{ marginTop: 20, marginLeft: 27, width: 16, height: 16 }}></Image>}
 
             </View>

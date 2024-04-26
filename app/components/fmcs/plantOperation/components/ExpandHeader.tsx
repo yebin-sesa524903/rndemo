@@ -1,7 +1,7 @@
 import React from "react";
-import {Image, Pressable, Text, View} from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import Colors from "../../../../utils/const/Colors";
-import {IconFill} from "@ant-design/icons-react-native";
+import { IconFill } from "@ant-design/icons-react-native";
 
 export interface ExpandHeaderProps {
   icon?: any,
@@ -21,7 +21,7 @@ export interface ExpandHeaderProps {
  */
 export function ExpandHeader(props: ExpandHeaderProps) {
   return (
-    <View style={{borderRadius: 5, backgroundColor: Colors.seBgContainer, marginLeft: 10, marginRight: 10, marginTop: 12}}>
+    <View style={{ borderRadius: 5, backgroundColor: Colors.seBgContainer, marginLeft: 10, marginRight: 10, marginTop: 12 }}>
       <View style={{
         flexDirection: 'row',
         height: 44,
@@ -30,11 +30,11 @@ export function ExpandHeader(props: ExpandHeaderProps) {
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          {props.icon && <Image source={props.icon} style={{width: 15, height: 15, marginRight: 6}}/>}
-          <Text style={{fontWeight: 'bold', fontSize: 15, color: Colors.seTextPrimary}}>{props.title}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {props.icon&&<Image source={props.icon} style={{ width: 15, height: 15, marginRight: 6 }} />}
+          <Text style={{ fontWeight: 'bold', fontSize: 15, color: Colors.seTextPrimary }}>{props.title}</Text>
           {
-            props.subTitle && <Text style={{
+            !props.subTitle? null:<Text style={{
               marginLeft: 15,
               color: Colors.seBrandNomarl,
               fontSize: 12,
@@ -44,19 +44,19 @@ export function ExpandHeader(props: ExpandHeaderProps) {
             }}>{props.subTitle}</Text>
           }
         </View>
-        <View style={{flexDirection:'row', alignItems:'center'}}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {props.topRightContent}
-          <Pressable style={{width: 30, height: 30, alignItems: 'center', justifyContent: 'center'}}
-                     onPress={() => {
-                       props.expandCallBack && props.expandCallBack(props.sectionType);
-                     }}>
-            <IconFill name={props.isExpand ? 'up-circle' : 'down-circle'} size={16} color={Colors.seBrandNomarl}/>
+          <Pressable style={{ width: 30, height: 30, alignItems: 'center', justifyContent: 'center' }}
+            onPress={() => {
+              props.expandCallBack&&props.expandCallBack(props.sectionType);
+            }}>
+            <IconFill name={props.isExpand? 'up-circle':'down-circle'} size={16} color={Colors.seBrandNomarl} />
           </Pressable>
         </View>
 
       </View>
       {
-        props.isExpand && props.content
+        props.isExpand&&props.content
       }
     </View>
   )

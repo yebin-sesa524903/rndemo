@@ -1,5 +1,5 @@
-import React,{Component} from "react";
-import {View, Text, ScrollView, RefreshControl, PanResponder} from 'react-native';
+import React, { Component } from "react";
+import { View, Text, ScrollView, RefreshControl, PanResponder } from 'react-native';
 import Icon from "../Icon";
 import TouchFeedback from "../TouchFeedback";
 import ChartTpCurve from './ChartTpCurve';
@@ -10,16 +10,16 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import Toast from "react-native-root-toast";
 import AgeingView from "./AgeingView";
 import Loading from '../Loading';
-import {GREEN} from "../../styles/color";
+import { GREEN } from "../../styles/color";
 const FORMAT = 'YYYY-MM-DD';
-import {isPhoneX} from '../../utils'
+import { isPhoneX } from '../../utils'
 import SectionParamTouch from "./SectionParamTouch";
 import SimpleRow from "./SimpleRow";
 export default class CircuitOverview extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {tabIndex: 0, canScroll:true}
+    this.state = { tabIndex: 0, canScroll: true }
   }
 
   renderTip() {
@@ -30,10 +30,12 @@ export default class CircuitOverview extends Component {
     let bgColor = '#fffbe6';
     return (
       <View>
-        <View style={{height: 36,backgroundColor: bgColor, flexDirection: 'row', paddingHorizontal: 16,
-          alignItems: 'center'}}>
-          <Icon type={'icon_info'} color={textColor} size={14}/>
-          <Text style={{color: textColor, fontSize: 14, marginLeft: 8}}>{tip}</Text>
+        <View style={{
+          height: 36, backgroundColor: bgColor, flexDirection: 'row', paddingHorizontal: 16,
+          alignItems: 'center'
+        }}>
+          <Icon type={'icon_info'} color={textColor} size={14} />
+          <Text style={{ color: textColor, fontSize: 14, marginLeft: 8 }}>{tip}</Text>
         </View>
         {this.renderGap()}
       </View>
@@ -42,16 +44,16 @@ export default class CircuitOverview extends Component {
 
   renderGap() {
     return (
-      <View style={{height: 10}}/>
+      <View style={{ height: 10 }} />
     )
   }
 
-  renderLine(color = '#d9d9d9', key=undefined) {
+  renderLine(color = '#d9d9d9', key = undefined) {
     let data = {};
     if (key) {
       data.key = key;
     }
-    return <View {...data} style={{height: 1, backgroundColor: color}}/>
+    return <View {...data} style={{ height: 1, backgroundColor: color }} />
   }
 
   renderScrollTab() {
@@ -59,15 +61,16 @@ export default class CircuitOverview extends Component {
     let selColor = '#284e98';
     let unSelColor = '#333';
     let redDot = () => (
-      <View style={{width: 6, height: 6, borderRadius: 3, backgroundColor: '#f00',
-        position: 'absolute',top: 0, right: 0
-      }}/>
+      <View style={{
+        width: 6, height: 6, borderRadius: 3, backgroundColor: '#f00',
+        position: 'absolute', top: 0, right: 0
+      }} />
     )
     let rows = tabs.map((t, index) => {
       let isSel = this.state.tabIndex === index;
       let red = false;
-      if(this.props.redDot && this.props.redDot.length > 0) {
-        if(this.props.redDot.findIndex(d => d.DeviceId === t.get('DeviceId')) >= 0){
+      if (this.props.redDot && this.props.redDot.length > 0) {
+        if (this.props.redDot.findIndex(d => d.DeviceId === t.get('DeviceId')) >= 0) {
           red = true;
         }
       }
@@ -75,22 +78,22 @@ export default class CircuitOverview extends Component {
       let bgColor = isSel ? selColor : '#00000000';
       return (
         <TouchFeedback key={index} onPress={() => {
-          if (this.state.tabIndex !== index){
-            this.setState({tabIndex: index});
+          if (this.state.tabIndex !== index) {
+            this.setState({ tabIndex: index });
             this.props.changeSensorTab(tabs.get(index));
           }
         }}>
-          <View style={{justifyContent:'flex-end', alignItems: 'center', paddingTop: 6, marginLeft: index === 0 ? 0: 20}}>
-            <Text style={{color: textColor, fontSize: 15}}>{t.get('DeviceName')}</Text>
-            <View style={{width:'100%',height: 3, backgroundColor: bgColor, marginTop: 8}}/>
+          <View style={{ justifyContent: 'flex-end', alignItems: 'center', paddingTop: 6, marginLeft: index === 0 ? 0 : 20 }}>
+            <Text style={{ color: textColor, fontSize: 15 }}>{t.get('DeviceName')}</Text>
+            <View style={{ width: '100%', height: 3, backgroundColor: bgColor, marginTop: 8 }} />
             {red ? redDot() : null}
           </View>
         </TouchFeedback>
       )
     })
     return (
-      <View style={{backgroundColor:'#fff', height: 44, paddingHorizontal: 16}}>
-        <ScrollView style={{flex: 1}} contentContainerStyle={{alignItems: 'flex-end',}}
+      <View style={{ backgroundColor: '#fff', height: 44, paddingHorizontal: 16 }}>
+        <ScrollView style={{ flex: 1 }} contentContainerStyle={{ alignItems: 'flex-end', }}
           showsHorizontalScrollIndicator={false} horizontal={true}>
           {rows}
         </ScrollView>
@@ -101,67 +104,67 @@ export default class CircuitOverview extends Component {
 
   renderTpCurve() {
     if (!this.props.sensorData || !this.props.sensors || this.props.sensors.size === 0) return;
-    let deviceId = this.props.sensors.getIn([this.state.tabIndex,'DeviceId']);
+    let deviceId = this.props.sensors.getIn([this.state.tabIndex, 'DeviceId']);
     if (!deviceId) return;
     let data = this.props.sensorData.get(deviceId);
     let units = [];
-    let monitorNames = this.props.sensors.getIn([this.state.tabIndex,'MonitorParameters'])
+    let monitorNames = this.props.sensors.getIn([this.state.tabIndex, 'MonitorParameters'])
       .map(p => {
         let formula = p.get('EdgeFormula');
         // formula = Number(formula);
         units.push(p.get('Unit'))
         switch (formula) {
           case 'Min':
-            formula='(最小值)';
+            formula = '(最小值)';
             break;
           case 'Max':
-            formula='(最大值)';
+            formula = '(最大值)';
             break;
           default:
-            formula='';
+            formula = '';
             break;
         }
-        return p.get('Name')+formula;
+        return p.get('Name') + formula;
       }).toJS();
-    if(!data) return;
-    if(data.isFetching) {
+    if (!data) return;
+    if (data.isFetching) {
       return (
-        <View style={{backgroundColor: '#fff', height:320}}>
-          <Loading/>
+        <View style={{ backgroundColor: '#fff', height: 320 }}>
+          <Loading />
         </View>
       )
     }
-    if(data.err) {
+    if (data.err) {
       return (
-        <View style={{backgroundColor: '#fff', height:320, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{ backgroundColor: '#fff', height: 320, alignItems: 'center', justifyContent: 'center' }}>
           <Text>获取数据失败</Text>
         </View>
       )
     }
-    if(!data.data || data.data.length === 0) {
+    if (!data.data || data.data.length === 0) {
       return (
-        <View style={{backgroundColor: '#fff', height:320, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{ backgroundColor: '#fff', height: 320, alignItems: 'center', justifyContent: 'center' }}>
           <Text>无数据</Text>
         </View>
       )
     }
     return (
-      <View style={{backgroundColor: '#fff'}}>
-      <ChartTpCurve data={data.data} units={units} monitorNames={monitorNames}
-                    onMove={()=>{
-                      this._moveTime = Date.now();
-                      if(this.state.canScroll) {
-                        this.setState({canScroll:false})
-                      }
-                      return false;
-                    }}
-      />
-    </View>
+      <View style={{ backgroundColor: '#fff' }}>
+        <ChartTpCurve data={data.data} units={units} monitorNames={monitorNames}
+          onMove={() => {
+            this._moveTime = Date.now();
+            if (this.state.canScroll) {
+              this.setState({ canScroll: false })
+            }
+            return false;
+          }}
+        />
+      </View>
     )
   }
 
   _changeDatePre() {
-    let date = moment(this.props.riskDate).add(-1,'d').format(FORMAT);
+    let date = moment(this.props.riskDate).add(-1, 'd').format(FORMAT);
     this.props.changeRiskDate(date);
   }
 
@@ -170,26 +173,26 @@ export default class CircuitOverview extends Component {
       moment().format(FORMAT) === moment(this.props.riskDate).format(FORMAT))
       return;
 
-    let date = moment(this.props.riskDate).add(1,'d').format(FORMAT);
+    let date = moment(this.props.riskDate).add(1, 'd').format(FORMAT);
     this.props.changeRiskDate(date);
   }
 
   renderRiskIndex() {
-    return null;
+    if (true) return null;
     if (!this.props.riskErr &&
       (!this.props.riskData || this.props.riskData.size === 0)) {
       return;
     }
     let otherView = null;
     if (this.props.riskFetching) {
-      otherView = <Loading/>
+      otherView = <Loading />
     } else if (this.props.riskErr) {
       otherView = (
-        <Text style={{fontSize: 12, color: '#888'}}>加载数据失败</Text>
+        <Text style={{ fontSize: 12, color: '#888' }}>加载数据失败</Text>
       )
     }
     let riskDate = this.props.riskDate;
-    if(!riskDate) {
+    if (!riskDate) {
       riskDate = moment().format('YYYY年MM月DD日');
     } else {
       riskDate = moment(riskDate).format('YYYY年MM月DD日');
@@ -197,43 +200,43 @@ export default class CircuitOverview extends Component {
     let contentView = null;
     if (otherView) {
       contentView = (
-        <View style={{height: 200,alignItems:'center', justifyContent:'center'}}>
+        <View style={{ height: 200, alignItems: 'center', justifyContent: 'center' }}>
           {otherView}
         </View>
       )
     } else {
       contentView = (
-        <View onMoveShouldSetResponder={()=>{
+        <View onMoveShouldSetResponder={() => {
           this._moveTime = Date.now();
-          if(this.state.canScroll) {
-            this.setState({canScroll:false})
+          if (this.state.canScroll) {
+            this.setState({ canScroll: false })
           }
           return false;
         }}>
-          <ChartRiskIndex date={moment(this.props.riskDate).toDate().getTime() / 1000} data={this.props.riskData.toJS()}/>
+          <ChartRiskIndex date={moment(this.props.riskDate).toDate().getTime() / 1000} data={this.props.riskData.toJS()} />
         </View>
       )
     }
 
-    let leftRightIcon = (icon,click) => {
+    let leftRightIcon = (icon, click) => {
       return (
         <TouchFeedback onPress={click}>
-          <View style={{padding: 4}}>
-            <Icon type={icon} color={'#888'} size={14}/>
+          <View style={{ padding: 4 }}>
+            <Icon type={icon} color={'#888'} size={14} />
           </View>
         </TouchFeedback>
       )
     }
     return (
-      <View style={{padding: 16, backgroundColor: '#fff',marginBottom: 10}}>
-        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-          <Text style={{fontSize: 17, color: '#333'}}>风险指数历史曲线</Text>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            {leftRightIcon('icon_arrow_left',()=>this._changeDatePre())}
+      <View style={{ padding: 16, backgroundColor: '#fff', marginBottom: 10 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Text style={{ fontSize: 17, color: '#333' }}>风险指数历史曲线</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            {leftRightIcon('icon_arrow_left', () => this._changeDatePre())}
             <TouchFeedback onPress={this._pickDate.bind(this)}>
-              <Text style={{fontSize: 14, color: '#888'}}>{riskDate}</Text>
+              <Text style={{ fontSize: 14, color: '#888' }}>{riskDate}</Text>
             </TouchFeedback>
-            {leftRightIcon('icon_arrow_right',()=>this._changeDateNext())}
+            {leftRightIcon('icon_arrow_right', () => this._changeDateNext())}
           </View>
         </View>
         {contentView}
@@ -254,9 +257,9 @@ export default class CircuitOverview extends Component {
         return p;
       });
       return (
-        <View style={{padding: 16, backgroundColor: '#fff', marginBottom: 10}}>
-          <Text style={{fontSize: 17, color: '#333'}}>功率与电流最大需量</Text>
-          <ChartPower data={data} max={max} min={min}/>
+        <View style={{ padding: 16, backgroundColor: '#fff', marginBottom: 10 }}>
+          <Text style={{ fontSize: 17, color: '#333' }}>功率与电流最大需量</Text>
+          <ChartPower data={data} max={max} min={min} />
         </View>
       )
     }
@@ -268,8 +271,10 @@ export default class CircuitOverview extends Component {
     let rows = [];
     let fnRow = (item, key) => {
       return (
-        <View key={key} style={{flexDirection: 'row', alignItems: 'center',
-          height: 56, justifyContent: 'space-between'}}>
+        <View key={key} style={{
+          flexDirection: 'row', alignItems: 'center',
+          height: 56, justifyContent: 'space-between'
+        }}>
           <Text>{item.get('title')}</Text>
           <Text>{item.get('value')}</Text>
         </View>
@@ -278,11 +283,11 @@ export default class CircuitOverview extends Component {
     data && data.forEach((row, index) => {
       rows.push(fnRow(row, index));
       if (index !== data.size - 1) {
-        rows.push(this.renderLine(undefined,`${index}${index}`));
+        rows.push(this.renderLine(undefined, `${index}${index}`));
       }
     });
     return (
-      <View style={{backgroundColor: '#fff', paddingHorizontal: 16}}>
+      <View style={{ backgroundColor: '#fff', paddingHorizontal: 16 }}>
         {rows}
       </View>
     );
@@ -290,18 +295,18 @@ export default class CircuitOverview extends Component {
 
   _renderParamGroup() {
     let arr = [];
-    if(this.props.paramGroup && this.props.paramGroup.size > 0) {
-      this.props.paramGroup.forEach((g,index) => {
+    if (this.props.paramGroup && this.props.paramGroup.size > 0) {
+      this.props.paramGroup.forEach((g, index) => {
         arr.push(
-          <SectionParamTouch key={`${g.get('title')}-${index}`} onSectionClick={()=>{
-            if(this.props.expandCircuitParam) {
+          <SectionParamTouch key={`${g.get('title')}-${index}`} onSectionClick={() => {
+            if (this.props.expandCircuitParam) {
               this.props.expandCircuitParam(index);
             }
           }} rowData={g} />
         )
-        g.get('isExpanded') && g.get('data').forEach((p,index2) => {
+        g.get('isExpanded') && g.get('data').forEach((p, index2) => {
           arr.push(
-            <SimpleRow key={`${g.get('title')}-${index}-${index2}`} onRowClick={()=>{}} rowData={p}/>
+            <SimpleRow key={`${g.get('title')}-${index}-${index2}`} onRowClick={() => { }} rowData={p} />
           )
         })
       });
@@ -323,7 +328,7 @@ export default class CircuitOverview extends Component {
 
   _pickDate() {
     this._riskDate = moment(this.props.riskDate).toDate();
-    this.setState({modalVisible: true})
+    this.setState({ modalVisible: true })
   }
 
   _renderPickerView() {
@@ -332,7 +337,7 @@ export default class CircuitOverview extends Component {
         is24Hour={true}
         titleIOS={'选择日期'}
         headerTextIOS={'选择日期'}
-        titleStyle={{fontSize: 17, color: '#333'}}
+        titleStyle={{ fontSize: 17, color: '#333' }}
         cancelTextIOS={'取消'}
         confirmTextIOS={'确定'}
         mode={'date'}
@@ -342,13 +347,13 @@ export default class CircuitOverview extends Component {
         }}
         isVisible={this.state.modalVisible}
         onConfirm={(date) => {
-          if(date.getTime() <= Date.now()) {
+          if (date.getTime() <= Date.now()) {
             this.props.changeRiskDate(moment(date).format(FORMAT))
           }
-          this.setState({modalVisible: false})
+          this.setState({ modalVisible: false })
         }}
         onCancel={() => {
-          this.setState({modalVisible: false})
+          this.setState({ modalVisible: false })
         }}
       />
     )
@@ -357,19 +362,19 @@ export default class CircuitOverview extends Component {
   renderAging() {
     if (!this.props.agingData) return;
     let errView = null;
-    if(this.props.agingData.get('errStr')) {
+    if (this.props.agingData.get('errStr')) {
       errView = (
-        <View style={{flexDirection: 'row',marginTop:12}}>
-          <Icon type={'icon_info'} color={'#ff4d4d'} size={14}/>
-          <Text style={{color: '#ff4d4d', fontSize: 14, marginLeft: 8, lineHeight: 18}}>{this.props.agingData.get('errStr')}</Text>
+        <View style={{ flexDirection: 'row', marginTop: 12 }}>
+          <Icon type={'icon_info'} color={'#ff4d4d'} size={14} />
+          <Text style={{ color: '#ff4d4d', fontSize: 14, marginLeft: 8, lineHeight: 18 }}>{this.props.agingData.get('errStr')}</Text>
         </View>
       )
     }
     return (
-      <View style={{padding: 16, backgroundColor: '#fff', marginBottom: 10}}>
-        <Text style={{fontSize: 17, color: '#333'}}>设备老化程度</Text>
+      <View style={{ padding: 16, backgroundColor: '#fff', marginBottom: 10 }}>
+        <Text style={{ fontSize: 17, color: '#333' }}>设备老化程度</Text>
         {errView}
-        <AgeingView color={'#e6e6e6'} unfilledColor={GREEN} ageValue={this.props.agingData.get('value')} errStr={null}/>
+        <AgeingView color={'#e6e6e6'} unfilledColor={GREEN} ageValue={this.props.agingData.get('value')} errStr={null} />
       </View>
     )
   }
@@ -386,17 +391,17 @@ export default class CircuitOverview extends Component {
           progressBackgroundColor={'white'}
         />
       }
-        onMoveShouldSetResponder={()=>{
+        onMoveShouldSetResponder={() => {
           let now = Date.now();
           let preMove = this._moveTime || 0;
-          if(now - preMove > 10) {
-            this.setState({canScroll: true})
+          if (now - preMove > 10) {
+            this.setState({ canScroll: true })
           }
         }}
 
         scrollEnabled={true}
-        contentContainerStyle={{paddingBottom:10}}
-        style={{backgroundColor: '#f2f2f2',flex:1,marginBottom: isPhoneX()? 34: 0}}>
+        contentContainerStyle={{ paddingBottom: 10 }}
+        style={{ backgroundColor: '#f2f2f2', flex: 1, marginBottom: isPhoneX() ? 34 : 0 }}>
 
         {this.renderTip()}
         {this.renderSensors()}

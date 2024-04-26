@@ -169,17 +169,6 @@ class JobBill extends Component {
     }
   }
 
-  _openCommandBill = () => {
-    if (backToCommandBill(this.props.navigator)) return;
-    this.props.navigation.push('PageWarpper', {
-      id: BILL_COMMAND_ID,
-      component: CommandBill,
-      passProps: {
-        billId: this.props.data.get('commandTicketId')
-      }
-    })
-  }
-
   _loadBill(bid) {
     this.props.getJobBillById(bid)
   }

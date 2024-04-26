@@ -6,25 +6,25 @@ import {
   STATISTICS_RESET,
 } from '../actions/myAction.js';
 
-import {LOGOUT_SUCCESS} from '../actions/loginAction';
+import { LOGOUT_SUCCESS } from '../actions/loginAction';
 
 import Immutable from 'immutable';
 
 
 var defaultState = Immutable.fromJS({
-  isFetching:false,
-  data:null,
-  alarmFirstId:null,
+  isFetching: false,
+  data: null,
+  alarmFirstId: null,
 });
 
-function dataLoaded(state,action) {
+function dataLoaded(state, action) {
   var objData = action.response.Result;
-  return state.set('data',Immutable.fromJS(objData));
+  return state.set('data', Immutable.fromJS(objData));
 }
 
-function handleError(state,action) {
-  var {Error} = action.error;
-  switch (Error) {
+function handleError(state, action) {
+  let err = action.error.Error;
+  switch (err) {
     case '040001307022':
       action.error = '您没有这一项的操作权限，请联系系统管理员';
       break;
@@ -36,15 +36,15 @@ function handleError(state,action) {
   return defaultState;
 }
 
-export default function(state=defaultState,action){
+export default function (state = defaultState, action) {
 
   switch (action.type) {
     case STATISTICS_REQUEST:
-      return state.set('isFetching',true);
+      return state.set('isFetching', true);
     case STATISTICS_SUCCESS:
-      return dataLoaded(state,action);
+      return dataLoaded(state, action);
     case STATISTICS_FAILURE:
-      return handleError(state,action);
+      return handleError(state, action);
     case STATISTICS_RESET:
     case LOGOUT_SUCCESS:
       return defaultState;

@@ -433,7 +433,6 @@ export default class CommandBill extends Component {
       case BILL_STATE.edit:
         return this._checkArray([KEYS.nameFrom, KEYS.nameTo, KEYS.timeFrom, KEYS.timeTo,
         KEYS.tdph, KEYS.tdhl, KEYS.tdyy]);
-        break;
       case BILL_STATE.read:
         return true;
     }
