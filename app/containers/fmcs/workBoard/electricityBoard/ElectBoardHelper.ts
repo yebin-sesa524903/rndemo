@@ -2,7 +2,7 @@ import Colors from "../../../../utils/const/Colors";
 import { PieLineObj } from "../../../../components/fmcs/workBoard/charts/Pie";
 import { isEmptyString, TimeFormatYMD } from "../../../../utils/const/Consts";
 import moment from "moment";
-import {sortArray} from "../../plantOperation/utils/Utils";
+import { sortArray } from "../../plantOperation/utils/Utils";
 
 export enum ElectricBoardChartType {
   semiCircleProgress=200099,///进度条
@@ -154,19 +154,19 @@ export function convertOverViewInfo(info: any) {
 export function convertIncomingInfo(info: any) {
   let keys=['mv10', 'mv20', 'mv30', 'mv40'];
   let arrData=[];
-  if (info&&info) {
+  if (info) {
     for (let item of keys) {
       let objMv=info[item];
-      if (objMv && Object.keys(objMv).length > 0){
+      if (objMv&&Object.keys(objMv).length>0) {
         arrData.push({
           title: objMv.deviceName,
           chartType: ElectricBoardChartType.semiCircleProgress,
           totalPower: objMv.totalPower,
           subTitle: `总功率${objMv.totalPower}kw`,
           status: objMv.status==="1"? '运行':'停止',
-          statusColor: objMv.status==="1"?'#333':Colors.red.primary,
+          statusColor: objMv.status==="1"? '#333':Colors.red.primary,
           temp: objMv.temp? '正常':'异常',
-          tempColor: objMv.temp?'#333':Colors.red.primary,
+          tempColor: objMv.temp? '#333':Colors.red.primary,
           frequency: objMv.frequency===null? '-':objMv.frequency,
           electricity: objMv.electricity>600? 600:objMv.electricity,
           volRate: objMv.voltage.current*100.0/(objMv.voltage.max-objMv.voltage.min),
@@ -224,13 +224,13 @@ export function convertAlarmInfoCount(info: any) {
  * @param info
  */
 export function convertPMInfoCount(info: any) {
-  let leftRows = [];
-  let rightRows: any[][] = [];
+  let leftRows=[];
+  let rightRows: any[][]=[];
   if (info) {
-    let pmArray = sortArray(info, 'systemName');
-    let names = [], periods = [], times = [], users = [];
+    let pmArray=sortArray(info, 'systemName');
+    let names=[], periods=[], times=[], users=[];
     for (let pmObj of pmArray) {
-      if (pmObj && pmObj.length > 0){
+      if (pmObj&&pmObj.length>0) {
         leftRows.push({
           title: pmObj[0].systemName,
           count: pmObj.length,
@@ -244,7 +244,7 @@ export function convertPMInfoCount(info: any) {
         }
       }
     }
-    rightRows = [names, periods, times, users];
+    rightRows=[names, periods, times, users];
   }
 
 

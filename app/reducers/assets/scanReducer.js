@@ -202,11 +202,11 @@ function handleError(state, action) {
       action.error = null;
     }
   }
-  state = defaultState.set('hasAuth', false).set('errorMessage', strError).set('errorToast', strToast);
+  let newState = defaultState.set('hasAuth', false).set('errorMessage', strError).set('errorToast', strToast);
   if (nameExist) {
-    state = state.set('nameExist', true);
+    newState = newState.set('nameExist', true);
   }
-  return state;
+  return newState;
 }
 
 export default function (state = defaultState, action) {

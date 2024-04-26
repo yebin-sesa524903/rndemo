@@ -569,7 +569,7 @@ export function saveMessage(body, isCreate) {
   return (dispatch, getState) => {
     return dispatch({
       types: [TICKET_MESSAGE_SAVE_REQUEST, TICKET_MESSAGE_SAVE_SUCCESS, TICKET_MESSAGE_SAVE_FAILURE],
-      url: isCreate ? '/popapi/api/tickets/creatediscuss' : '/popapi/api/tickets/creatediscuss',
+      url: '/popapi/api/tickets/creatediscuss',
       body
     });
 

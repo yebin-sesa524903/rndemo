@@ -153,8 +153,7 @@ var defaultFetch = async function (options) {
   //     token: callinToken,
   //   })
   // }
-  if (url.indexOf('sgai-certificate/') !== -1 ||
-    url.indexOf('sgai-certificate/') !== -1) {
+  if (url.indexOf('sgai-certificate/') !== -1) {
     url = hostKnowledge + options.url;
     headers["Auth-Token"] = knowledgeToken;//"eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE2Nzk0NDQxMjQsInN1YiI6IntcImVtYWlsXCI6XCJhZG1pbkBzZS5jb21cIixcImdjb2RlXCI6XCIzYTVkMTM5NDJjY2Y0ZDkyODI3NWRhYWY3MDcxYzA5NFwiLFwibW9iaWxlXCI6XCIxMzk5OTk5OTk5N1wiLFwicmVhbE5hbWVcIjpcImFkbWluXCIsXCJ1c2VySWRcIjo4MTM5Mjh9IiwiZXhwIjoxNjc5NDg3MzI0fQ.jLFtkIqQYFttx_pO_smRuLCX7-ZKAkbZMLct7x1XRRE";
   }

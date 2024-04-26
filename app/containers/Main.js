@@ -391,13 +391,7 @@ class Main extends Component {
     }
     this._lastNetworkChangedTime = Date.now();
     this._lastNetworkChanged = isConnected;
-    if (isConnected) {//有网，加载本地缓存数据
-      // let downloadTime= await getDownloadTimeByTicketId(1);
-      // this._querySyncTask().then();
 
-    } else {//断网，终端同步
-      // this.props.syncAbort();
-    }
   }
 
   _onNotification(notification) {

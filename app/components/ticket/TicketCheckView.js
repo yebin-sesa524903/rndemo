@@ -118,7 +118,7 @@ class TicketCheckView extends Component {
         // console.log('toBottom',toBottom,'keyheight',this.keyborderHeight);
         this._doCheck(toBottom);
       })
-    });
+    }).then();
   }
 
   _doCheck(toBottom) {

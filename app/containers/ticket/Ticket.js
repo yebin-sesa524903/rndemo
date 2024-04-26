@@ -396,20 +396,6 @@ class Ticket extends Component {
     trackApi.onPageBegin('ticket_management');
     InteractionManager.runAfterInteractions(() => {
       var currData = this._getCurrentData(this.props);
-      if (!currData.get('allDatas')) {
-        // InteractionManager.runAfterInteractions(()=>{
-        // console.warn('componentDidMount...',this._getCurrentData(this.props).get('filter'));
-        // setTimeout(()=>{
-        //   this._loadTickets(this._getCurrentData(this.props).get('filter'),true);
-        // },100);
-        // this._loadTickets(this._getCurrentData(this.props).get('filter'));
-        // });
-      } else {
-        // var obj = currData.get('allDatas').map((item)=>item.toArray()).toArray();
-        // InteractionManager.runAfterInteractions(()=>{
-        //   this._setDataSourceCache(this.ds.cloneWithRowsAndSections(obj));
-        // });
-      }
       notificationHelper.register('ticket', () => this._checkPushNotification());
 
     });

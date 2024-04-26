@@ -142,7 +142,7 @@ function updateAssetDetailData(state, action) {
     });
 
   //这里插入产品描述类型
-  if (res.ProductDescription & !isLogbook) {
+  if (res.ProductDescription && !isLogbook) {
     if (!parameters) parameters = [];
     parameters.unshift({
       'title': '产品描述',

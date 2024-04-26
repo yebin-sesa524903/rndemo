@@ -1,11 +1,11 @@
-import React,{Component} from "react";
-import {View, Text, ScrollView, Alert,} from 'react-native';
-import {GREEN, LIST_BG} from "../../../styles/color";
+import React, { Component } from "react";
+import { View, Text, ScrollView, Alert, } from 'react-native';
+import { GREEN, LIST_BG } from "../../../styles/color";
 import Toolbar from "../../Toolbar";
 import TouchFeedback from "../../TouchFeedback";
 import trackApi from "../../../utils/trackApi";
 import backHelper from "../../../utils/backHelper";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Toast from "react-native-root-toast";
 
@@ -18,14 +18,14 @@ class IgnoreTask extends Component {
 
   constructor(props) {
     super(props);
-    this.state={
-      data:props.data
+    this.state = {
+      data: props.data
     };
   }
 
   componentDidMount() {
     trackApi.onPageBegin(this.props.route.id);
-    backHelper.init(this.props.navigator,this.props.route.id);
+    backHelper.init(this.props.navigator, this.props.route.id);
   }
 
   componentWillUnmount() {
@@ -33,10 +33,10 @@ class IgnoreTask extends Component {
     backHelper.destroy(this.props.route.id);
   }
 
-  componentDidUpdate(prevProps, prevState , snapshot) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
 
-    if(prevProps.isUpdating !== this.props.isUpdating ){
-      if(this.props.isUpdating) {
+    if (prevProps.isUpdating !== this.props.isUpdating) {
+      if (this.props.isUpdating) {
         this.context.showSpinner();
       } else {
         this.context.hideHud();
@@ -48,26 +48,31 @@ class IgnoreTask extends Component {
   }
 
   _renderTask() {
-    let taskViews = this.state.data.map((item,index) => {
+    let taskViews = this.state.data.map((item, index) => {
       let ignore = item.isIgnore;
 
       return (
-        <View key={index} style={{flexDirection:'row',marginLeft:16,paddingRight:16,height:56,alignItems:'center',
-          borderBottomColor:'#f2f2f2',borderBottomWidth:1}}>
-          <View style={{width:32,height:32,borderRadius:16,borderColor:ignore?'#d9d9d9':'#d9d9d9',borderWidth:1,
-            alignItems:'center',justifyContent:'center',backgroundColor:ignore?'#f2f2f2':'#00000000'}}>
-            <Text style={{fontSize:17,color:ignore?'#d9d9d9':'#d9d9d9'}}>{index+1}</Text>
+        <View key={index} style={{
+          flexDirection: 'row', marginLeft: 16, paddingRight: 16, height: 56, alignItems: 'center',
+          borderBottomColor: '#f2f2f2', borderBottomWidth: 1
+        }}>
+          <View style={{
+            width: 32, height: 32, borderRadius: 16, borderColor: '#d9d9d9', borderWidth: 1,
+            alignItems: 'center', justifyContent: 'center', backgroundColor: ignore ? '#f2f2f2' : '#00000000'
+          }}>
+            <Text style={{ fontSize: 17, color: '#d9d9d9' }}>{index + 1}</Text>
           </View>
-          <Text style={{flex:1,fontSize:17,color:ignore?'#c0c0c0':'#333',marginHorizontal:16,
-            textDecorationLine:ignore?'line-through':'none'
+          <Text style={{
+            flex: 1, fontSize: 17, color: ignore ? '#c0c0c0' : '#333', marginHorizontal: 16,
+            textDecorationLine: ignore ? 'line-through' : 'none'
           }}>{item.title}</Text>
-          <TouchFeedback onPress={()=>{
+          <TouchFeedback onPress={() => {
             let obj = this.state.data;
             obj[index].isIgnore = !ignore;
-            this.setState({data:obj});
+            this.setState({ data: obj });
           }}>
-            <View style={{padding:10,marginRight:-16,paddingRight:16}}>
-              <Text style={{fontSize:17,color:GREEN}}>{ignore ? '取消忽略':`忽略`}</Text>
+            <View style={{ padding: 10, marginRight: -16, paddingRight: 16 }}>
+              <Text style={{ fontSize: 17, color: GREEN }}>{ignore ? '取消忽略' : `忽略`}</Text>
             </View>
 
           </TouchFeedback>
@@ -76,11 +81,11 @@ class IgnoreTask extends Component {
       )
     })
     return (
-      <View style={{backgroundColor:'#fff',marginTop:10}}>
-        <View style={{flexDirection:'row',justifyContent:'space-between',padding:16,}}>
-          <Text style={{fontSize:17,color:'#333',fontWeight:'500'}}>巡检维护任务</Text>
+      <View style={{ backgroundColor: '#fff', marginTop: 10 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 16, }}>
+          <Text style={{ fontSize: 17, color: '#333', fontWeight: '500' }}>巡检维护任务</Text>
         </View>
-        <View style={{height:1,backgroundColor:'#f2f2f2'}}/>
+        <View style={{ height: 1, backgroundColor: '#f2f2f2' }} />
         {taskViews}
       </View>
     )
@@ -90,16 +95,16 @@ class IgnoreTask extends Component {
     //如果全部忽略，给出提示
     let hasItem = false;
     this.state.data.forEach(item => {
-      if(!item.isIgnore){
+      if (!item.isIgnore) {
         hasItem = true;
       }
     })
-    if(!hasItem) {
+    if (!hasItem) {
       Alert.alert(
         '',
         `巡检任务不可全部忽略`,
         [
-          {text: '知道了', onPress: () => {}},
+          { text: '知道了', onPress: () => { } },
         ]
       )
       return;
@@ -109,16 +114,16 @@ class IgnoreTask extends Component {
 
   render() {
     return (
-      <View style={{flex:1, backgroundColor:LIST_BG}}>
+      <View style={{ flex: 1, backgroundColor: LIST_BG }}>
         <Toolbar
           title={'忽略任务项'}
           navIcon="back"
           noShadow={true}
-          actions={[{title:'完成'}]}
-          onActionSelected={[()=>this._doSubmit()]}
-          onIconClicked={()=>this.props.onBack()}
+          actions={[{ title: '完成' }]}
+          onActionSelected={[() => this._doSubmit()]}
+          onIconClicked={() => this.props.onBack()}
         />
-        <ScrollView style={{flex:1}} showsVerticalScrollIndicator={false}>
+        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           {this._renderTask()}
         </ScrollView>
       </View>
@@ -126,11 +131,11 @@ class IgnoreTask extends Component {
   }
 }
 
-function mapStateToProps(state,ownProps) {
+function mapStateToProps(state, ownProps) {
   let serviceTicket = state.ticket.serviceTicket;
   return {
-    isUpdating:serviceTicket.get('isUpdating')
+    isUpdating: serviceTicket.get('isUpdating')
   }
 }
 
-export default connect(mapStateToProps,{})(IgnoreTask);
+export default connect(mapStateToProps, {})(IgnoreTask);

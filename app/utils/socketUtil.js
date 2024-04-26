@@ -117,7 +117,7 @@ export default {
     // console.warn('toden,deviceid...',token,deviceid,address);
 
     remNotification.connectSocketIO && remNotification.connectSocketIO(address);
-    return;
+    if (true) return;
     socket = socketIO.connect(address, {
       timeout: 10000,
       jsonp: false,

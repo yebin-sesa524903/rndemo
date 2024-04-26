@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
 
@@ -7,7 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import ListView from 'deprecated-react-native-listview';
 import Scroller from 'react-native-scroller';
-import {createResponder} from 'react-native-gesture-responder';
+import { createResponder } from 'react-native-gesture-responder';
 import TimerMixin from 'react-timer-mixin';
 import reactMixin from 'react-mixin';
 
@@ -45,7 +45,7 @@ export default class ViewPager extends Component {
   constructor(props) {
     super(props);
 
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
       width: 0,
       height: 0,
@@ -59,8 +59,8 @@ export default class ViewPager extends Component {
         }
       } else {
         const curX = this.scroller.getCurrX();
-        if(this.refs['innerListView']) {
-          this.refs['innerListView'].scrollTo({x: curX, animated: false});
+        if (this.refs['innerListView']) {
+          this.refs['innerListView'].scrollTo({ x: curX, animated: false });
 
           let position = Math.floor(curX / (this.state.width + this.props.pageMargin));
           position = this.validPage(position);
@@ -124,10 +124,10 @@ export default class ViewPager extends Component {
     return (
       <View
         {...this.props}
-        style={[this.props.style, {flex: 1}]}
+        style={[this.props.style, { flex: 1 }]}
         {...gestureResponder}>
         <ListView
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           ref='innerListView'
           scrollEnabled={false}
           horizontal={true}
@@ -142,8 +142,8 @@ export default class ViewPager extends Component {
   }
 
   renderRow(rowData, sectionID, rowID, highlightRow) {
-    const {width, height} = this.state;
-    let page = this.props.renderPage(rowData, rowID, {width, height});
+    const { width, height } = this.state;
+    let page = this.props.renderPage(rowData, rowID, { width, height });
 
     let newProps = {
       ...page.props,
@@ -155,11 +155,11 @@ export default class ViewPager extends Component {
       }]
     };
     const element = React.createElement(page.type, newProps);
-// console.warn('renderRow...',rowID,rowData);
+    // console.warn('renderRow...',rowID,rowData);
     if (this.props.pageMargin > 0 && rowID > 0) {
       //Do not using margin style to implement pageMargin. The ListView seems to calculate a wrong width for children views with margin.
       return (
-        <View style={{width: width + this.props.pageMargin, height: height, alignItems: 'flex-end'}}>
+        <View style={{ width: width + this.props.pageMargin, height: height, alignItems: 'flex-end' }}>
           {element}
         </View>
       );
@@ -169,14 +169,14 @@ export default class ViewPager extends Component {
   }
 
   onLayout(e) {
-    let {width, height} = e.nativeEvent.layout;
+    let { width, height } = e.nativeEvent.layout;
     let sizeChanged = this.state.width !== width || this.state.height !== height;
     if (width && height && sizeChanged) {
       //if layout changed, create a new DataSource instance to trigger renderRow
       this.layoutChanged = true;
       this.setState({
         width, height,
-        dataSource: (new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})).cloneWithRows([])
+        dataSource: (new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })).cloneWithRows([])
       });
     }
   }
@@ -184,13 +184,7 @@ export default class ViewPager extends Component {
   componentDidUpdate() {
     if (!this.initialPageSettled) {
       this.initialPageSettled = true;
-      if (Platform.OS === 'ios') {
-        // this.scrollToPage(this.props.initialPage, true);
-        setTimeout(this.scrollToPage.bind(this, this.props.initialPage, true), 0);
-      } else {
-        //A trick to solve bugs on Android. Delay a little
-        setTimeout(this.scrollToPage.bind(this, this.props.initialPage, true), 0);
-      }
+      setTimeout(this.scrollToPage.bind(this, this.props.initialPage, true), 0);
     } else if (this.layoutChanged) {
       this.layoutChanged = false;
       if (typeof this.currentPage === 'number') {
@@ -254,7 +248,7 @@ export default class ViewPager extends Component {
     page = this.validPage(page);
     this.onPageChanged(page);
     const finalX = this.getScrollOffsetOfPage(page);
-// console.warn('flingToPage',this.scroller.getCurrX(),finalX,page);
+    // console.warn('flingToPage',this.scroller.getCurrX(),finalX,page);
     if (immediate) {
       this.scroller.startScroll(this.scroller.getCurrX(), 0, finalX - this.scroller.getCurrX(), 0, 0);
     } else {

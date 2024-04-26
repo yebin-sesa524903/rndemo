@@ -147,7 +147,7 @@ export default class ProtectionValueEdit extends Component {
           compressImages(chosenImages, res => {
             res.forEach((item, index) => {
               item.PictureId = `logbook-image-${Date.now()}-${index}`;
-              item.uri = item.uri;
+              // item.uri = item.uri;
             });
             item.value = res[0];
             this.setState({ imgs: this.state.imgs })
@@ -382,7 +382,7 @@ export default class ProtectionValueEdit extends Component {
           compressImages(chosenImages, res => {
             res.forEach((item, index) => {
               item.PictureId = `logbook-image-${Date.now()}-${index}`;
-              item.uri = item.uri;
+              // item.uri = item.uri;
             });
             this._addImageItem.value = res[0];
             this.setState({ imgs: this.state.imgs })

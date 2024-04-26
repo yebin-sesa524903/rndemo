@@ -85,7 +85,7 @@ export default class ServiceLogEdit extends Component {
         }}>
           <Text style={{ fontSize: 17, color: '#333', width: 92 }}>{title}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', flex: 1, marginLeft: 10, paddingVertical: 16 }}>
-            <Text style={{ fontSize: 17, lineHeight: 23, color: value ? '#888' : '#888', flex: 1, textAlign: 'right' }}>{displayValue}</Text>
+            <Text style={{ fontSize: 17, lineHeight: 23, color: '#888', flex: 1, textAlign: 'right' }}>{displayValue}</Text>
             <Icon type={'icon_asset_folder'} color={'#b2b2b2'} size={17} style={{ marginLeft: 12 }} />
           </View>
         </View>
@@ -145,7 +145,7 @@ export default class ServiceLogEdit extends Component {
           compressImages(chosenImages, res => {
             res.forEach((item, index) => {
               item.PictureId = `logbook-image-${Date.now()}-${index}`;
-              item.uri = item.uri;
+              // item.uri = item.uri;
             });
             this.setState({
               imgs: this.state.imgs.concat(res)
@@ -386,7 +386,7 @@ export default class ServiceLogEdit extends Component {
           compressImages(chosenImages, res => {
             res.forEach((item, index) => {
               item.PictureId = `logbook-image-${Date.now()}-${index}`;
-              item.uri = item.uri;
+              // item.uri = item.uri;
             });
             this.setState({
               imgs: this.state.imgs.concat(res)

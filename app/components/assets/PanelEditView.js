@@ -133,7 +133,7 @@ export default class PanelEditView extends Component {
           borderBottomWidth: 1, borderBottomColor: '#e6e6e6'
         }}>
           <Text style={{ fontSize: 17, color: '#333', width: 92 }}>{title}</Text>
-          <Text style={{ fontSize: 17, color: value ? '#888' : '#888', flex: 1 }}>{value || '请选择'}</Text>
+          <Text style={{ fontSize: 17, color: '#888', flex: 1 }}>{value || '请选择'}</Text>
           <Icon type={'icon_asset_folder'} color={'#b2b2b2'} size={20} />
         </View>
       </TouchFeedback>

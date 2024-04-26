@@ -23,7 +23,7 @@ export default class trackApi {
     // sensorsApi.login(String(uid));
   }
   static profileSignInWithPUID(puid, user, spInfo) {
-    return;
+    if (true) return;
     uid = puid;
     if (!user) {
       return;
@@ -73,7 +73,7 @@ export default class trackApi {
   }
   static onPageBegin(pid, customerId, customerName) {
     // console.warn('trackApi...',this.formatValueWithUid(pid));
-    return;
+    if (true) return;
     var item = appPageTrackList[pid];
     if (item) {
 

@@ -1,5 +1,5 @@
 'use strict';
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Animated,
@@ -16,14 +16,14 @@ import TouchFeedback from '../TouchFeedback';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
-export default class ScrollableTabBar extends Component{
+export default class ScrollableTabBar extends Component {
   constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       _leftTabUnderline: new Animated.Value(0),
       _widthTabUnderline: new Animated.Value(0),
       _containerWidth: null,
-      scrollEnabled:true,
+      scrollEnabled: true,
     }
     this._tabsMeasurements = [];
   }
@@ -69,11 +69,11 @@ export default class ScrollableTabBar extends Component{
     newScrollX = newScrollX >= 0 ? newScrollX : 0;
 
     if (Platform.OS === 'android') {
-      this._scrollView.scrollTo({x: newScrollX, y: 0, animated: false, });
+      this._scrollView.scrollTo({ x: newScrollX, y: 0, animated: false, });
     } else {
       const rightBoundScroll = this._tabContainerMeasurements.width - (this._containerMeasurements.width);
       newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
-      this._scrollView.scrollTo({x: newScrollX, y: 0, animated: false, });
+      this._scrollView.scrollTo({ x: newScrollX, y: 0, animated: false, });
     }
   }
 
@@ -99,10 +99,10 @@ export default class ScrollableTabBar extends Component{
   renderTab(name, page, isTabActive, onPressHandler, onLayoutHandler) {
     const { activeTextColor, inactiveTextColor, textStyle, } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
-    const fontWeight = isTabActive ? 'normal' : 'normal';
-    var lineColor='green';
+    const fontWeight = 'normal';
+    var lineColor = 'green';
     if (this.props.underlineStyle) {
-      lineColor=this.props.underlineStyle.backgroundColor;
+      lineColor = this.props.underlineStyle.backgroundColor;
     }
     if (this.props.renderTab) {
       return this.props.renderTab();
@@ -119,12 +119,12 @@ export default class ScrollableTabBar extends Component{
       >
         <View style={{}}>
           <View style={[styles.tab, this.props.tabStyle]}>
-            <Text style={[{color: textColor, fontWeight, }, textStyle, ]}>
+            <Text style={[{ color: textColor, fontWeight, }, textStyle,]}>
               {name}
             </Text>
           </View>
-          <View style={[{flex:1,paddingHorizontal:10,height:3}]}>
-            <View style={{height:3,backgroundColor:!isTabActive?'transparent':lineColor,}}>
+          <View style={[{ flex: 1, paddingHorizontal: 10, height: 3 }]}>
+            <View style={{ height: 3, backgroundColor: !isTabActive ? 'transparent' : lineColor, }}>
             </View>
           </View>
         </View>
@@ -134,9 +134,9 @@ export default class ScrollableTabBar extends Component{
 
   measureTab(page, event) {
     const { x, width, height, } = event.nativeEvent.layout;
-    this._tabsMeasurements[page] = {left: x, right: x + width, width, height, };
+    this._tabsMeasurements[page] = { left: x, right: x + width, width, height, };
     // console.warn('measureTab...',page,x,width);
-    this.updateView({value: this.props.scrollValue._value, });
+    this.updateView({ value: this.props.scrollValue._value, });
   }
 
   render() {
@@ -154,7 +154,7 @@ export default class ScrollableTabBar extends Component{
 
     return (
       <View
-        style={[styles.container, {backgroundColor: this.props.backgroundColor, }, this.props.style, ]}
+        style={[styles.container, { backgroundColor: this.props.backgroundColor, }, this.props.style,]}
         onLayout={this.onContainerLayout.bind(this)}
       >
         <ScrollView
@@ -168,7 +168,7 @@ export default class ScrollableTabBar extends Component{
           scrollsToTop={false}
         >
           <View
-            style={[styles.tabs, {width: this.state._containerWidth, }, this.props.tabsContainerStyle, ]}
+            style={[styles.tabs, { width: this.state._containerWidth, }, this.props.tabsContainerStyle,]}
             ref={'tabContainer'}
             onLayout={this.onTabContainerLayout.bind(this)}
           >
@@ -189,8 +189,8 @@ export default class ScrollableTabBar extends Component{
     if (JSON.stringify(this.props.tabs) !== JSON.stringify(nextProps.tabs) && this.state._containerWidth) {
       this.setState({ _containerWidth: null, });
     }
-    if (this.props.scrollValue!==nextProps.scrollValue) {
-      this.updateView({value: nextProps.scrollValue._value, });
+    if (this.props.scrollValue !== nextProps.scrollValue) {
+      this.updateView({ value: nextProps.scrollValue._value, });
     }
   }
   onTabContainerLayout(e) {
@@ -198,16 +198,16 @@ export default class ScrollableTabBar extends Component{
     let width = this._tabContainerMeasurements.width;
     if (width < WINDOW_WIDTH) {
       width = WINDOW_WIDTH;
-      this.setState({scrollEnabled:false});
-    }else {
-      this.setState({scrollEnabled:true});
+      this.setState({ scrollEnabled: false });
+    } else {
+      this.setState({ scrollEnabled: true });
     }
     this.setState({ _containerWidth: width, });
-    this.updateView({value: this.props.scrollValue._value, });
+    this.updateView({ value: this.props.scrollValue._value, });
   }
   onContainerLayout(e) {
     this._containerMeasurements = e.nativeEvent.layout;
-    this.updateView({value: this.props.scrollValue._value, });
+    this.updateView({ value: this.props.scrollValue._value, });
   }
 }
 
@@ -254,7 +254,7 @@ var styles = StyleSheet.create({
     borderLeftWidth: 0,
     borderRightWidth: 0,
     borderColor: '#e6e6e6',//'#ccc',
-    marginTop:-1,
+    marginTop: -1,
   },
   tabs: {
     flexDirection: 'row',

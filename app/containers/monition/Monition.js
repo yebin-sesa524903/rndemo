@@ -133,7 +133,7 @@ class Monition extends Component {
       }, 100)
       return;
     }
-
+    let op = true;
     if (this.props.filter !== nextProps.filter) {
       //如果是切换tab,有数据就不做处理,否则需要做处理
       if (this.props.tabIndex === nextProps.tabIndex &&
@@ -145,7 +145,7 @@ class Monition extends Component {
             }, 100);
           });
         });
-      } else if (true || !nextProps.data || nextProps.data.size === 0) {//切换刷新
+      } else if (op || !nextProps.data || nextProps.data.size === 0) {//切换刷新
         this.setState({}, () => {
           InteractionManager.runAfterInteractions(() => {
             setTimeout(() => {

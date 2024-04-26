@@ -119,12 +119,7 @@ export default class Form extends Component {
   }
   _codeChanged(type, text) {
     // console.warn('inputchange:',type);
-    if (type === 'password') {
-      // this.props.onInputChanged(type, 'eJCJ/wrddqTHGx7rhxL+hA==1');
-      this.props.onInputChanged(type, text);
-    } else {
-      this.props.onInputChanged(type, text);
-    }
+    this.props.onInputChanged(type, text);
   }
   // _staffNumChange(type,text) {
   //   // console.log(type);

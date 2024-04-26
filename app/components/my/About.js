@@ -74,7 +74,7 @@ export default class About extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <Toolbar
-          title={Platform.OS === 'android' ? '关于EnergyHub' : '关于EnergyHub'}
+          title={'关于EnergyHub'}
           navIcon="back"
           onIconClicked={() => this.props.onBack()} />
         <View style={styles.container}>

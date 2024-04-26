@@ -426,7 +426,8 @@ function mapStateToProps(state, ownProps) {
   //   data = null;
   // }
   var isExecuterNotCreate = false;
-  if (false && data) {
+  let op = false;
+  if (op && data) {
     var isExecutor = false;
     data.get('Executors').forEach(item => {
       if (!isExecutor) {
